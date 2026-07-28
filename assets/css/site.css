@@ -69,6 +69,19 @@ ul{list-style:none}
   *{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
 
+/* Grid/flex items default to min-width:auto, which sizes them to their
+   content's intrinsic width and silently overflows the viewport on
+   narrow screens. Every two-up layout on the site needs this reset. */
+.hero-grid > *,
+.diff-visual-body > *,
+.diff-visual-head > *,
+.flagship-grid > *,
+.case-card > *,
+.build-grid > *,
+.about-grid > *{
+  min-width:0;
+}
+
 /* ── Focus ──────────────────────────────────────────────────── */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
   outline:2px solid var(--link);outline-offset:3px;border-radius:1px;
@@ -147,6 +160,12 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
 @media(max-width:640px){
   .nav{padding:0 22px}
   .nav-links{gap:16px}
+}
+@media(max-width:480px){
+  /* Brand + résumé button must survive at 375px; the text links can go —
+     both sections they point to are one scroll away on a single-page site. */
+  .nav-links a:not(.btn){display:none}
+  .nav-links .btn{padding:9px 14px;font-size:12px}
 }
 
 /* ── Hero ───────────────────────────────────────────────────── */
