@@ -1,0 +1,438 @@
+/* ============================================================
+   akhilvasvani.com — design system
+   Grammar borrowed from BuildDiff: proof-paper base, diff gutters,
+   highlighter marks on changed text only. Grotesk for argument
+   (home), serif for record (case studies, in case.css).
+   ============================================================ */
+
+/* ── Fonts (self-hosted, latin subset only — fallback covers rest) */
+@font-face{
+  font-family:'Archivo';font-style:normal;font-weight:400;font-display:swap;
+  src:url('../fonts/archivo-400.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Archivo';font-style:italic;font-weight:400;font-display:swap;
+  src:url('../fonts/archivo-400i.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Archivo';font-style:normal;font-weight:600;font-display:swap;
+  src:url('../fonts/archivo-600.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Archivo';font-style:normal;font-weight:700;font-display:swap;
+  src:url('../fonts/archivo-700.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Geist Mono';font-style:normal;font-weight:400;font-display:swap;
+  src:url('../fonts/geist-mono-400.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Geist Mono';font-style:normal;font-weight:500;font-display:swap;
+  src:url('../fonts/geist-mono-500.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Geist Mono';font-style:normal;font-weight:600;font-display:swap;
+  src:url('../fonts/geist-mono-600.woff2') format('woff2');
+}
+
+/* ── Tokens ─────────────────────────────────────────────────── */
+:root{
+  --paper:      #FAFAF7;
+  --paper-sunk: #F1F1EC;
+  --ink:        #14181F;
+  --ink-mid:    #5A6472;
+  --rule:       #DDDED8;
+  --mark:       #FFD84D;
+  --link:       #0F3D8C;
+
+  --f-display:'Archivo',ui-sans-serif,system-ui,sans-serif;
+  --f-mono:'Geist Mono',ui-monospace,'Cascadia Code','IBM Plex Mono',monospace;
+
+  --col-max:1120px;
+  --radius:2px;
+}
+
+/* ── Reset ──────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--f-display);line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--mark);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer;background:none;border:none}
+ul{list-style:none}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* ── Focus ──────────────────────────────────────────────────── */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--link);outline-offset:3px;border-radius:1px;
+}
+
+/* ── Layout shell ───────────────────────────────────────────── */
+.shell{max-width:var(--col-max);margin:0 auto;padding-left:48px;padding-right:48px}
+@media(max-width:640px){.shell{padding-left:22px;padding-right:22px}}
+
+/* ── Utility text ───────────────────────────────────────────── */
+.eyebrow{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-mid);
+}
+.mono{font-family:var(--f-mono)}
+mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
+
+/* ── Gutter component ───────────────────────────────────────── */
+/* Every major section carries a ~40px left gutter with a mono marker.
+   Markers encode content: + on What I Build, Δ on BuildDiff, // on About. */
+.gutter{display:grid;grid-template-columns:40px 1fr;gap:0}
+.gutter-mark{
+  font-family:var(--f-mono);font-size:13px;color:var(--ink-mid);
+  padding-top:4px;
+}
+@media(max-width:780px){
+  .gutter{grid-template-columns:24px 1fr}
+}
+
+/* ── Buttons / CTAs ─────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--f-display);font-weight:600;font-size:14.5px;
+  color:#fff;background:var(--ink);
+  padding:14px 26px;border-radius:var(--radius);
+  transition:opacity .15s;
+}
+.btn:hover{opacity:.82}
+.btn-ghost{
+  color:var(--ink);background:transparent;border:1px solid var(--rule);
+}
+.btn-ghost:hover{opacity:1;border-color:var(--ink-mid)}
+.btn-sm{font-size:13px;padding:10px 18px}
+.link-arrow{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13.5px;font-weight:600;color:var(--link);
+}
+.link-arrow:hover{text-decoration:underline}
+/* Case study CTAs get the highlighter treatment on hover — the one
+   other permitted use of --mark, per the visual brief's discipline budget. */
+.cs-cta:hover{box-shadow:inset 0 -2px 0 var(--mark);text-decoration:none}
+
+/* ── Nav ────────────────────────────────────────────────────── */
+.nav{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;
+  background:var(--paper);
+  border-bottom:1px solid transparent;
+  transition:border-color .2s,box-shadow .2s;
+}
+.nav.scrolled{
+  border-color:var(--rule);
+  box-shadow:0 1px 0 var(--rule);
+}
+.nav-brand{
+  font-family:var(--f-display);font-size:17px;font-weight:700;
+  letter-spacing:-.02em;color:var(--ink);
+}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a:not(.btn){
+  font-size:13.5px;font-weight:500;color:var(--ink-mid);
+  transition:color .15s;
+}
+.nav-links a:not(.btn):hover{color:var(--ink)}
+@media(max-width:640px){
+  .nav{padding:0 22px}
+  .nav-links{gap:16px}
+}
+
+/* ── Hero ───────────────────────────────────────────────────── */
+.hero{padding:56px 48px 72px}
+.hero-grid{
+  display:grid;grid-template-columns:1.5fr 1fr;
+  gap:56px;align-items:start;
+}
+.hero h1{
+  font-family:var(--f-display);font-size:clamp(36px,5vw,58px);
+  font-weight:700;line-height:1.08;letter-spacing:-.03em;
+  color:var(--ink);text-wrap:balance;margin-top:20px;
+}
+.hero-sub{
+  margin-top:22px;font-size:17.5px;line-height:1.58;
+  color:var(--ink-mid);max-width:560px;
+}
+.hero-cta-row{margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hero-meta{
+  margin-top:28px;font-family:var(--f-mono);font-size:12px;
+  letter-spacing:.03em;color:var(--ink-mid);
+}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .hero{padding:32px 22px 48px}
+}
+
+/* Hero diff visual */
+.diff-visual{
+  border:1px solid var(--rule);border-radius:var(--radius);
+  overflow:hidden;background:var(--paper-sunk);
+}
+.diff-visual-head{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--rule);
+}
+.diff-visual-head span{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-mid);
+  padding:9px 14px;
+}
+.diff-visual-head span:first-child{border-right:1px solid var(--rule)}
+.diff-visual-body{display:grid;grid-template-columns:1fr 1fr}
+.diff-pane{padding:16px 16px;border-right:1px solid var(--rule)}
+.diff-pane:last-child{border-right:none}
+.diff-pane p{
+  font-family:var(--f-mono);font-size:11.5px;line-height:1.7;color:var(--ink);
+}
+.diff-pane .del{text-decoration:line-through;color:var(--ink-mid)}
+.diff-pane .add mark{background:var(--mark)}
+.diff-caption{
+  font-family:var(--f-mono);font-size:9.5px;color:var(--ink-mid);
+  letter-spacing:.04em;padding:9px 14px;border-top:1px solid var(--rule);
+}
+@media(max-width:520px){
+  .diff-visual-head span{font-size:9px;padding:7px 10px}
+  .diff-pane{padding:12px}
+  .diff-pane p{font-size:10.5px}
+}
+
+/* ── Proof bar ──────────────────────────────────────────────── */
+.proof{padding:0 48px}
+.proof-bar{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.proof-cell{
+  padding:26px 22px 26px 0;border-right:1px solid var(--rule);
+  transition:background .15s;
+}
+.proof-cell:last-child{border-right:none;padding-right:0}
+.proof-cell:hover{background:var(--paper-sunk)}
+.proof-n{
+  font-family:var(--f-mono);font-weight:600;font-size:28px;
+  letter-spacing:-.01em;color:var(--ink);display:block;
+}
+.proof-l{
+  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-mid);
+  display:block;margin-top:8px;line-height:1.4;
+}
+.proof-basis{
+  font-family:var(--f-mono);font-size:11px;color:var(--ink-mid);
+  padding:12px 0;letter-spacing:.02em;
+}
+@media(max-width:780px){
+  .proof-bar{grid-template-columns:1fr 1fr}
+  .proof-cell{border-bottom:1px solid var(--rule)}
+  .proof-cell:nth-child(2){border-right:none}
+  .proof-cell:nth-child(odd){padding-right:22px}
+}
+@media(max-width:640px){
+  .proof{padding:0 22px}
+}
+
+/* ── BuildDiff band (flagship) ──────────────────────────────── */
+.flagship{
+  background:var(--paper-sunk);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:72px 0;
+}
+.flagship-inner{
+  display:grid;grid-template-columns:40px 1fr;gap:0;
+}
+.flagship-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;
+}
+.flagship-title{
+  font-family:var(--f-display);font-size:36px;font-weight:700;
+  letter-spacing:-.03em;color:var(--ink);margin-top:14px;
+}
+.flagship-oneliner{
+  margin-top:10px;font-size:17px;color:var(--ink-mid);max-width:480px;
+}
+.flagship-body p{font-size:16px;line-height:1.65;color:var(--ink);margin-top:20px}
+.flagship-body p:first-child{margin-top:24px}
+.flagship-shot{
+  border:1px solid var(--rule);border-radius:var(--radius);overflow:hidden;
+  background:var(--paper);
+}
+.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.chip{
+  border:1px solid var(--rule);border-radius:var(--radius);
+  background:var(--paper);padding:14px 18px;flex:1;min-width:180px;
+}
+.chip-n{font-family:var(--f-mono);font-weight:600;font-size:20px;color:var(--ink)}
+.chip-l{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-mid);margin-top:4px;display:block}
+.flagship-cta{margin-top:28px}
+@media(max-width:900px){
+  .flagship-grid{grid-template-columns:1fr}
+}
+@media(max-width:780px){
+  .flagship-inner{grid-template-columns:24px 1fr}
+}
+@media(max-width:640px){
+  .flagship{padding:48px 0}
+}
+
+/* ── Second case study (Perplexity) ─────────────────────────── */
+.case-second{padding:72px 48px}
+.case-card{
+  display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;
+  border-top:1px solid var(--rule);padding-top:40px;
+}
+.case-title{
+  font-family:var(--f-display);font-size:27px;font-weight:700;
+  letter-spacing:-.02em;color:var(--ink);line-height:1.15;
+}
+.case-oneliner{margin-top:12px;font-size:15.5px;color:var(--ink-mid);line-height:1.55}
+.case-metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.case-metric{
+  font-family:var(--f-mono);font-size:12px;color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius);
+  padding:6px 12px;background:var(--paper-sunk);
+}
+.case-card .link-arrow{margin-top:22px}
+@media(max-width:780px){
+  .case-card{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .case-second{padding:48px 22px}
+}
+
+/* ── What I build ───────────────────────────────────────────── */
+.build{padding:72px 48px}
+.build-head{margin-bottom:8px}
+.build-title{
+  font-family:var(--f-display);font-size:28px;font-weight:700;
+  letter-spacing:-.02em;color:var(--ink);margin-top:12px;
+}
+.build-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  margin-top:32px;border-top:1px solid var(--rule);
+}
+.build-card{
+  padding:26px 24px 26px 0;border-right:1px solid var(--rule);
+}
+.build-card:last-child{border-right:none;padding-right:0}
+.build-card-title{
+  font-family:var(--f-display);font-size:17px;font-weight:600;
+  color:var(--ink);letter-spacing:-.01em;
+}
+.build-card p{font-size:14px;line-height:1.55;color:var(--ink-mid);margin-top:10px}
+.build-card .link-arrow{margin-top:14px}
+@media(max-width:780px){
+  .build-grid{grid-template-columns:1fr}
+  .build-card{border-right:none;border-bottom:1px solid var(--rule);padding:22px 0}
+}
+@media(max-width:640px){
+  .build{padding:48px 22px}
+}
+
+/* ── About ──────────────────────────────────────────────────── */
+.about{padding:72px 48px}
+.about-grid{
+  display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start;
+  margin-top:12px;
+}
+.about-body p{font-size:16px;line-height:1.65;color:var(--ink);margin-top:18px}
+.about-body p:first-child{margin-top:0;font-size:18px;font-weight:500}
+.about-facts{display:grid;gap:20px}
+.portrait-sq{
+  width:120px;height:120px;object-fit:cover;border-radius:0;
+  border:1px solid var(--rule);margin-bottom:8px;
+}
+.fact-key{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-mid);margin-bottom:5px;
+}
+.fact-val{font-size:14px;color:var(--ink);line-height:1.5;white-space:pre-line}
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .about{padding:48px 22px}
+}
+
+/* ── Career ─────────────────────────────────────────────────── */
+.career{padding:72px 48px}
+.career-intro{margin-top:12px;font-size:15px;color:var(--ink-mid);max-width:520px}
+.career-list{margin-top:32px}
+.career-row{
+  display:grid;grid-template-columns:130px 1fr;gap:24px;
+  padding:28px 0;border-top:1px solid var(--rule);
+}
+.career-list .career-row:last-of-type{border-bottom:1px solid var(--rule)}
+.career-date{
+  font-family:var(--f-mono);font-size:11px;color:var(--ink-mid);
+  letter-spacing:.06em;padding-top:4px;
+}
+.career-role-line{display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.career-role{
+  font-family:var(--f-display);font-size:19px;font-weight:600;
+  letter-spacing:-.01em;color:var(--ink);
+}
+.career-org{color:var(--ink-mid);font-weight:400}
+.career-loc{
+  font-family:var(--f-mono);font-size:10px;color:var(--ink-mid);
+  letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;
+}
+.career-sub{
+  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-mid);
+  margin-top:6px;
+}
+.career-desc{margin-top:12px;font-size:14.5px;line-height:1.6;color:var(--ink);max-width:620px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.tag{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.03em;
+  color:var(--ink-mid);padding:4px 10px;
+  border:1px solid var(--rule);border-radius:var(--radius);
+}
+.career-edu{
+  padding:18px 0;border-bottom:1px solid var(--rule);
+  font-size:13.5px;color:var(--ink-mid);
+}
+.career-resume{margin-top:22px}
+@media(max-width:640px){
+  .career{padding:48px 22px}
+  .career-row{grid-template-columns:1fr;gap:8px}
+}
+
+/* ── Contact ────────────────────────────────────────────────── */
+.contact{padding:72px 48px 88px;border-top:1px solid var(--rule)}
+.contact-head{
+  font-family:var(--f-display);font-size:clamp(30px,4vw,42px);
+  font-weight:700;letter-spacing:-.025em;color:var(--ink);
+  margin-top:14px;max-width:640px;
+}
+.contact-body{margin-top:18px}
+.contact-body p{font-size:16px;line-height:1.6;color:var(--ink-mid);max-width:560px}
+.contact-actions{margin-top:28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.contact-utility{
+  margin-top:32px;display:flex;gap:24px;
+  font-family:var(--f-mono);font-size:12.5px;
+}
+.contact-utility a{color:var(--ink-mid)}
+.contact-utility a:hover{color:var(--link)}
+@media(max-width:640px){
+  .contact{padding:48px 22px 64px}
+}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+footer{padding:32px 48px;border-top:1px solid var(--rule)}
+.footer-status{
+  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-mid);
+  letter-spacing:.02em;
+}
+@media(max-width:640px){footer{padding:24px 22px}}
