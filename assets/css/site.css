@@ -78,7 +78,7 @@ ul{list-style:none}
 .flagship-grid > *,
 .case-card > *,
 .build-grid > *,
-.about-grid > *{
+.intro-grid > *{
   min-width:0;
 }
 
@@ -184,10 +184,6 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
   color:var(--ink-mid);max-width:560px;
 }
 .hero-cta-row{margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.hero-meta{
-  margin-top:28px;font-family:var(--f-mono);font-size:12px;
-  letter-spacing:.03em;color:var(--ink-mid);
-}
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr}
 }
@@ -195,11 +191,17 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
   .hero{padding:32px 22px 48px}
 }
 
-/* Hero diff visual */
-.diff-visual{
+/* Hero portrait */
+.hero-photo{
+  width:100%;max-width:400px;height:auto;aspect-ratio:4/5;object-fit:cover;
   border:1px solid var(--rule);border-radius:var(--radius);
-  overflow:hidden;background:var(--paper-sunk);
+  justify-self:end;
 }
+@media(max-width:900px){
+  .hero-photo{max-width:280px;justify-self:start}
+}
+
+/* Diff-table styling shared by the flagship band's schematic (.flagship-shot) */
 .diff-visual-head{
   display:grid;grid-template-columns:1fr 1fr;
   border-bottom:1px solid var(--rule);
@@ -228,38 +230,19 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
   .diff-pane p{font-size:10.5px}
 }
 
-/* ── Proof bar ──────────────────────────────────────────────── */
-.proof{padding:0 48px}
-.proof-bar{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+/* ── How I work / Profile (between hero and flagship) ────────── */
+.intro{padding:8px 48px 64px}
+.intro-grid{
+  display:grid;grid-template-columns:1.6fr 1fr;gap:56px;
+  border-top:1px solid var(--rule);padding-top:36px;
 }
-.proof-cell{
-  padding:26px 22px 26px 0;border-right:1px solid var(--rule);
-  transition:background .15s;
-}
-.proof-cell:last-child{border-right:none;padding-right:0}
-.proof-cell:hover{background:var(--paper-sunk)}
-.proof-n{
-  font-family:var(--f-mono);font-weight:600;font-size:28px;
-  letter-spacing:-.01em;color:var(--ink);display:block;
-}
-.proof-l{
-  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-mid);
-  display:block;margin-top:8px;line-height:1.4;
-}
-.proof-basis{
-  font-family:var(--f-mono);font-size:11px;color:var(--ink-mid);
-  padding:12px 0;letter-spacing:.02em;
-}
+.intro-body{margin-top:14px;font-size:16.5px;line-height:1.6;color:var(--ink);max-width:520px}
+.profile-facts{display:grid;gap:16px;margin-top:14px}
 @media(max-width:780px){
-  .proof-bar{grid-template-columns:1fr 1fr}
-  .proof-cell{border-bottom:1px solid var(--rule)}
-  .proof-cell:nth-child(2){border-right:none}
-  .proof-cell:nth-child(odd){padding-right:22px}
+  .intro-grid{grid-template-columns:1fr;gap:28px}
 }
 @media(max-width:640px){
-  .proof{padding:0 22px}
+  .intro{padding:4px 22px 48px}
 }
 
 /* ── BuildDiff band (flagship) ──────────────────────────────── */
@@ -361,25 +344,14 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
 
 /* ── About ──────────────────────────────────────────────────── */
 .about{padding:72px 48px}
-.about-grid{
-  display:grid;grid-template-columns:1.4fr 1fr;gap:56px;align-items:start;
-  margin-top:12px;
-}
+.about-body-solo{margin-top:12px;max-width:700px}
 .about-body p{font-size:16px;line-height:1.65;color:var(--ink);margin-top:18px}
 .about-body p:first-child{margin-top:0;font-size:18px;font-weight:500}
-.about-facts{display:grid;gap:20px}
-.portrait-sq{
-  width:120px;height:120px;object-fit:cover;border-radius:0;
-  border:1px solid var(--rule);margin-bottom:8px;
-}
 .fact-key{
   font-family:var(--f-mono);font-size:10px;letter-spacing:.13em;
   text-transform:uppercase;color:var(--ink-mid);margin-bottom:5px;
 }
 .fact-val{font-size:14px;color:var(--ink);line-height:1.5;white-space:pre-line}
-@media(max-width:900px){
-  .about-grid{grid-template-columns:1fr}
-}
 @media(max-width:640px){
   .about{padding:48px 22px}
 }

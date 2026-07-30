@@ -16,6 +16,7 @@
 
 <link rel="preload" href="assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/geist-mono-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/img/hero-portrait-400.jpg" as="image" imagesrcset="assets/img/hero-portrait-400.jpg 1x, assets/img/hero-portrait-800.jpg 2x" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/site.css">
 
 <script type="application/ld+json">
@@ -64,53 +65,52 @@
     <div>
       <div class="eyebrow">AI Solutions Engineer · Open to new roles</div>
       <h1>I build AI systems for workflows that cannot afford <mark>to be wrong</mark>.</h1>
-      <p class="hero-sub">AI Solutions Engineer at WebMD / Medscape. I built BuildDiff, a deterministic comparison platform now in production for medical-legal content review. It cut missed editorial edits by 90% and saves $300K a year. Before that, eight shipped AI workflows returning 12,177 hours annually.</p>
+      <p class="hero-sub">AI Solutions Engineer. I identify business processes ripe for reinvention and rebuild them with an AI-first mindset.</p>
       <div class="hero-cta-row">
         <a href="/work/builddiff" class="btn">View case study →</a>
         <a href="/Akhil-Vasvani-AI-Solutions-Engineer.pdf" download class="btn btn-ghost">Download résumé ↓</a>
       </div>
-      <div class="hero-meta mono">Johns Hopkins EE, B.S. + M.S. · Perplexity Business Fellow '25 · New York, ET</div>
     </div>
 
-    <div class="diff-visual" aria-hidden="true">
-      <div class="diff-visual-head">
-        <span>Before</span><span>After</span>
-      </div>
-      <div class="diff-visual-body">
-        <div class="diff-pane">
-          <p>Patients should take the medication twice daily with food. Contact a physician if symptoms persist beyond five days.</p>
-        </div>
-        <div class="diff-pane">
-          <p class="add">Patients should take the medication <mark>three times</mark> daily with food. Contact a physician <mark>immediately</mark> if symptoms persist beyond <mark>three</mark> days.</p>
-        </div>
-      </div>
-      <div class="diff-caption">Illustrative comparison — not an actual BuildDiff record</div>
-    </div>
+    <img src="assets/img/hero-portrait-400.jpg" srcset="assets/img/hero-portrait-400.jpg 1x, assets/img/hero-portrait-800.jpg 2x" width="400" height="500" alt="Akhil Vasvani" class="hero-photo" fetchpriority="high">
   </div>
 </section>
 
-<!-- Proof bar -->
-<div class="proof">
-  <div class="proof-bar">
-    <a href="/work/builddiff#results" class="proof-cell">
-      <span class="proof-n">$300K</span>
-      <span class="proof-l">annual savings, BuildDiff in production</span>
-    </a>
-    <a href="/work/builddiff#results" class="proof-cell">
-      <span class="proof-n">90%</span>
-      <span class="proof-l">reduction in missed editorial edits</span>
-    </a>
-    <a href="/work/perplexity" class="proof-cell">
-      <span class="proof-n">12,177 hrs</span>
-      <span class="proof-l">reclaimed annually, eight shipped workflows</span>
-    </a>
-    <a href="/work/perplexity#sso" class="proof-cell">
-      <span class="proof-n">6 wks → 33 min</span>
-      <span class="proof-l">autonomous M&amp;A due-diligence agent</span>
-    </a>
+<!-- How I work / Profile -->
+<section class="intro shell">
+  <div class="intro-grid">
+    <div>
+      <div class="eyebrow">How I work</div>
+      <p class="intro-body">I sit shoulder-to-shoulder with the people doing the work, learn their workflows in depth, then design, prototype, and ship the systems that change how those teams operate. The intersection of business problems, modern AI, and pragmatic engineering is where I do my best work.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Profile</div>
+      <div class="profile-facts">
+        <div>
+          <div class="fact-key">Role</div>
+          <div class="fact-val">AI Solutions Engineer</div>
+        </div>
+        <div>
+          <div class="fact-key">Company</div>
+          <div class="fact-val">WebMD / Medscape (Internet Brands)</div>
+        </div>
+        <div>
+          <div class="fact-key">Education</div>
+          <div class="fact-val">Johns Hopkins University
+B.S. + M.S. Electrical Engineering</div>
+        </div>
+        <div>
+          <div class="fact-key">Credential</div>
+          <div class="fact-val">Perplexity Business Fellow, 2025</div>
+        </div>
+        <div>
+          <div class="fact-key">Based</div>
+          <div class="fact-val">New York, ET</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="proof-basis mono">Measured results from shipped systems — see case studies for methodology.</div>
-</div>
+</section>
 
 <!-- BuildDiff — flagship -->
 <section class="flagship" id="work">
@@ -217,35 +217,11 @@
     <div class="gutter-mark">//</div>
     <div>
       <div class="eyebrow">About</div>
-      <div class="about-grid">
-        <div class="about-body">
-          <p>I build AI systems for enterprises that cannot stop working while I build them.</p>
-          <p>Most of my work happens inside regulated content and research workflows at WebMD and Medscape, where a missed editorial edit is a compliance problem and a hallucinated citation is worse. That constraint shapes the architecture. On BuildDiff, the comparison engine is fully deterministic, because copyeditors and QA validators need results they can reproduce and explain. The AI layer sits on top, read-only, doing triage and summarization. It is never the source of truth. Deciding where the model does not belong is usually the more important design decision.</p>
-          <p>The other half of getting a system into production is knowing what it has to do before you build it. I start with the person whose job is about to change and find out what they check, what they are afraid of getting wrong, and what they would have to see to trust an output. On BuildDiff that meant sitting with proofreaders. On the Health Accreditation project it took five prompt iterations before the tool was usable, because each iteration was really a requirements conversation. When a legal stakeholder tested Perplexity against Lexis and concluded it was broken, the useful move was not defending the tool, it was asking what research work lives outside of Lexis and eats a week. That question produced a project returning 1,976 hours a year.</p>
-          <p>Most of what I do maps to what labs and startups call forward deployed engineering. I came to it through analysis and program management before engineering, which is why I am comfortable in the room where the work happens and in the codebase where it gets fixed. Johns Hopkins EE, B.S. and M.S., machine learning for signal processing. Perplexity Business Fellow, 2025.</p>
-        </div>
-        <div class="about-facts">
-          <img src="assets/img/portrait-120.jpg" srcset="assets/img/portrait-120.jpg 1x, assets/img/portrait-240.jpg 2x" width="120" height="120" alt="Akhil Vasvani" class="portrait-sq" loading="lazy">
-          <div>
-            <div class="fact-key">Now</div>
-            <div class="fact-val">AI Solutions Engineer, WebMD / Medscape
-Digital Transformation Lead (formal title)</div>
-          </div>
-          <div>
-            <div class="fact-key">Education</div>
-            <div class="fact-val">Johns Hopkins University
-B.S. + M.S. Electrical Engineering
-ML for signal processing</div>
-          </div>
-          <div>
-            <div class="fact-key">Credential</div>
-            <div class="fact-val">Perplexity Business Fellow, 2025</div>
-          </div>
-          <div>
-            <div class="fact-key">Based</div>
-            <div class="fact-val">New York, ET</div>
-          </div>
-        </div>
+      <div class="about-body about-body-solo">
+        <p>I build AI systems for enterprises that cannot stop working while I build them.</p>
+        <p>Most of my work happens inside regulated content and research workflows at WebMD and Medscape, where a missed editorial edit is a compliance problem and a hallucinated citation is worse. That constraint shapes the architecture. On BuildDiff, the comparison engine is fully deterministic, because copyeditors and QA validators need results they can reproduce and explain. The AI layer sits on top, read-only, doing triage and summarization. It is never the source of truth. Deciding where the model does not belong is usually the more important design decision.</p>
+        <p>The other half of getting a system into production is knowing what it has to do before you build it. I start with the person whose job is about to change and find out what they check, what they are afraid of getting wrong, and what they would have to see to trust an output. On BuildDiff that meant sitting with proofreaders. On the Health Accreditation project it took five prompt iterations before the tool was usable, because each iteration was really a requirements conversation. When a legal stakeholder tested Perplexity against Lexis and concluded it was broken, the useful move was not defending the tool, it was asking what research work lives outside of Lexis and eats a week. That question produced a project returning 1,976 hours a year.</p>
+        <p>Most of what I do maps to what labs and startups call forward deployed engineering. I came to it through analysis and program management before engineering, which is why I am comfortable in the room where the work happens and in the codebase where it gets fixed. Johns Hopkins EE, B.S. and M.S., machine learning for signal processing. Perplexity Business Fellow, 2025.</p>
       </div>
     </div>
   </div>
