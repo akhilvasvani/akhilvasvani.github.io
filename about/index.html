@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>About — Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Akhil Vasvani builds AI systems for enterprises that cannot stop working while he builds them. Forward deployed engineering inside regulated content and research workflows.">
+<link rel="canonical" href="https://akhilvasvani.com/about">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<header class="page-head shell">
+  <img src="../assets/img/hero-portrait-400.jpg" srcset="../assets/img/hero-portrait-400.jpg 1x, ../assets/img/hero-portrait-800.jpg 2x" width="140" height="175" alt="Akhil Vasvani" class="about-portrait">
+  <h1 class="page-title">About</h1>
+</header>
+
+<section class="page-section shell">
+  <div class="gutter">
+    <div class="gutter-mark">//</div>
+    <div class="about-body about-body-solo">
+      <p>I build AI systems for enterprises that cannot stop working while I build them.</p>
+      <p>Most of my work happens inside regulated content and research workflows at WebMD and Medscape, where a missed editorial edit is a compliance problem and a hallucinated citation is worse. That constraint shapes the architecture. On BuildDiff, the comparison engine is fully deterministic, because copyeditors and QA validators need results they can reproduce and explain. The AI layer sits on top, read-only, doing triage and summarization. It is never the source of truth. Deciding where the model does not belong is usually the more important design decision.</p>
+      <p>The other half of getting a system into production is knowing what it has to do before you build it. I start with the person whose job is about to change and find out what they check, what they are afraid of getting wrong, and what they would have to see to trust an output. On BuildDiff that meant sitting with proofreaders. On the Health Accreditation project it took five prompt iterations before the tool was usable, because each iteration was really a requirements conversation. When a legal stakeholder tested Perplexity against Lexis and concluded it was broken, the useful move was not defending the tool, it was asking what research work lives outside of Lexis and eats a week. That question produced a project returning 1,976 hours a year.</p>
+      <p>Most of what I do maps to what labs and startups call forward deployed engineering. I came to it through analysis and program management before engineering, which is why I am comfortable in the room where the work happens and in the codebase where it gets fixed. Johns Hopkins EE, B.S. and M.S., machine learning for signal processing. Perplexity Business Fellow, 2025.</p>
+    </div>
+  </div>
+</section>
+
+<section class="page-section shell" id="career-story">
+  <div class="eyebrow">Story</div>
+  <h2 class="page-section-title">My career story → FDE</h2>
+  <p class="about-pending">Writing in progress.</p>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently: open to AI Solutions Engineer roles · New York, ET · Replies in ~48h</div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
+</script>
+</body>
+</html>

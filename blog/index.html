@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Blog — Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Writing on AI systems, forward deployed engineering, and getting production tooling into daily use inside regulated enterprise workflows.">
+<link rel="canonical" href="https://akhilvasvani.com/blog">
+<link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<header class="page-head shell">
+  <div class="eyebrow">Blog</div>
+  <h1 class="page-title">Writing</h1>
+  <p class="page-intro">Notes on building AI systems that people actually run — architecture decisions, the parts that broke, and what the users taught me.</p>
+</header>
+
+<section class="page-section shell">
+  <div class="blog-list">
+    <div class="blog-row">
+      <div class="blog-row-title">Posts</div>
+      <div class="blog-empty">Longer pieces on architecture and design decisions. Writing in progress.</div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-row-title">Notes</div>
+      <div class="blog-empty">Shorter observations from work in production. Writing in progress.</div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-row-title">Tutorials</div>
+      <div class="blog-empty">Walkthroughs of tools and techniques worth reusing. Writing in progress.</div>
+    </div>
+    <div class="blog-row">
+      <div class="blog-row-title">Writings</div>
+      <div class="blog-empty">Everything else. Writing in progress.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently: open to AI Solutions Engineer roles · New York, ET · Replies in ~48h</div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 8);
+}, { passive: true });
+</script>
+</body>
+</html>

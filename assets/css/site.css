@@ -78,7 +78,9 @@ ul{list-style:none}
 .flagship-grid > *,
 .case-card > *,
 .build-grid > *,
-.intro-grid > *{
+.intro-grid > *,
+.project-row > *,
+.blog-row > *{
   min-width:0;
 }
 
@@ -162,10 +164,11 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
   .nav-links{gap:16px}
 }
 @media(max-width:480px){
-  /* Brand + résumé button must survive at 375px; the text links can go —
-     both sections they point to are one scroll away on a single-page site. */
-  .nav-links a:not(.btn){display:none}
-  .nav-links .btn{padding:9px 14px;font-size:12px}
+  /* Career / About / Blog are now the only nav items and must stay
+     reachable on a phone — tighten them rather than hiding them. */
+  .nav-brand{font-size:15px}
+  .nav-links{gap:14px}
+  .nav-links a{font-size:13px}
 }
 
 /* ── Hero ───────────────────────────────────────────────────── */
@@ -184,6 +187,14 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
   color:var(--ink-mid);max-width:560px;
 }
 .hero-cta-row{margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+/* Inline links inside the hero intro — underlined so they read as
+   navigation, not emphasis, against the surrounding body copy. */
+.hero-link{
+  color:var(--ink);text-decoration:underline;
+  text-decoration-color:var(--rule);text-underline-offset:3px;
+  transition:color .15s,text-decoration-color .15s;
+}
+.hero-link:hover{color:var(--link);text-decoration-color:var(--link)}
 @media(max-width:900px){
   .hero-grid{grid-template-columns:1fr}
 }
@@ -400,24 +411,120 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
   .career-row{grid-template-columns:1fr;gap:8px}
 }
 
-/* ── Contact ────────────────────────────────────────────────── */
-.contact{padding:72px 48px 88px;border-top:1px solid var(--rule)}
+/* ── Contact (homepage, deliberately large) ─────────────────── */
+/* Horizontal padding lives on .shell inside, so the contact copy lines up
+   with the hero's text column rather than the section's own edge. */
+.contact{
+  padding:104px 0 112px;border-top:1px solid var(--rule);
+  background:var(--paper-sunk);
+}
 .contact-head{
-  font-family:var(--f-display);font-size:clamp(30px,4vw,42px);
-  font-weight:700;letter-spacing:-.025em;color:var(--ink);
-  margin-top:14px;max-width:640px;
+  font-family:var(--f-display);font-size:clamp(34px,5.2vw,60px);
+  font-weight:700;letter-spacing:-.03em;color:var(--ink);
+  margin-top:16px;max-width:900px;line-height:1.08;text-wrap:balance;
 }
-.contact-body{margin-top:18px}
-.contact-body p{font-size:16px;line-height:1.6;color:var(--ink-mid);max-width:560px}
-.contact-actions{margin-top:28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.contact-utility{
-  margin-top:32px;display:flex;gap:24px;
-  font-family:var(--f-mono);font-size:12.5px;
+.contact-channels{
+  margin-top:44px;display:flex;gap:14px;flex-wrap:wrap;
 }
-.contact-utility a{color:var(--ink-mid)}
-.contact-utility a:hover{color:var(--link)}
+.channel-link{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:15px;font-weight:600;color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius);
+  background:var(--paper);padding:14px 22px;
+  transition:border-color .15s,color .15s;
+}
+.channel-link:hover{border-color:var(--ink);color:var(--link)}
+.channel-link svg{flex-shrink:0}
 @media(max-width:640px){
-  .contact{padding:48px 22px 64px}
+  .contact{padding:64px 0 72px}
+  .contact-channels{margin-top:32px;gap:10px}
+  .channel-link{width:100%;padding:13px 18px}
+}
+
+/* ── Interior page headers ──────────────────────────────────── */
+.page-head{padding:56px 48px 0}
+.page-title{
+  font-family:var(--f-display);font-size:clamp(34px,4.6vw,50px);
+  font-weight:700;letter-spacing:-.03em;color:var(--ink);
+  margin-top:14px;line-height:1.1;
+}
+.page-intro{
+  margin-top:18px;font-size:17px;line-height:1.6;
+  color:var(--ink-mid);max-width:620px;
+}
+.page-section{padding:64px 48px 0}
+.page-section-title{
+  font-family:var(--f-display);font-size:24px;font-weight:700;
+  letter-spacing:-.02em;color:var(--ink);margin-top:12px;
+}
+.page-section + .page-section{padding-top:64px}
+/* Last section needs breathing room before the footer rule. */
+main > .page-section:last-child{padding-bottom:88px}
+@media(max-width:640px){
+  .page-head{padding:32px 22px 0}
+  .page-section{padding:48px 22px 0}
+  main > .page-section:last-child{padding-bottom:64px}
+}
+
+/* ── Projects (Career page) ─────────────────────────────────── */
+.project-list{margin-top:28px}
+.project-row{
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:start;
+  padding:28px 0;border-top:1px solid var(--rule);
+}
+.project-list .project-row:last-child{border-bottom:1px solid var(--rule)}
+.project-title{
+  font-family:var(--f-display);font-size:20px;font-weight:600;
+  letter-spacing:-.015em;color:var(--ink);
+}
+.project-desc{margin-top:10px;font-size:15px;line-height:1.6;color:var(--ink-mid);max-width:620px}
+.project-metrics{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.project-cta{white-space:nowrap;padding-top:4px}
+/* Pending rows are signalled by the status chip alone. Dimming the row with
+   opacity dropped the body copy below WCAG AA contrast. */
+.project-status{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-mid);
+  border:1px solid var(--rule);border-radius:var(--radius);
+  padding:5px 10px;white-space:nowrap;
+}
+@media(max-width:640px){
+  .project-row{grid-template-columns:1fr;gap:14px}
+  .project-cta{padding-top:0}
+}
+
+/* ── Education ──────────────────────────────────────────────── */
+.edu-row{
+  padding:24px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  margin-top:28px;
+}
+.edu-school{font-family:var(--f-display);font-size:18px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.edu-detail{margin-top:8px;font-size:14.5px;line-height:1.6;color:var(--ink-mid)}
+
+/* ── Blog ───────────────────────────────────────────────────── */
+.blog-row{
+  padding:26px 0;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:180px 1fr;gap:28px;align-items:baseline;
+}
+.blog-list .blog-row:last-child{border-bottom:1px solid var(--rule)}
+.blog-row-title{
+  font-family:var(--f-display);font-size:18px;font-weight:600;
+  color:var(--ink);letter-spacing:-.01em;
+}
+.blog-empty{font-size:14.5px;color:var(--ink-mid);line-height:1.6}
+@media(max-width:640px){
+  .blog-row{grid-template-columns:1fr;gap:8px}
+}
+
+/* ── About page ─────────────────────────────────────────────── */
+.about-portrait{
+  width:140px;height:175px;object-fit:cover;
+  border:1px solid var(--rule);border-radius:var(--radius);
+  margin-bottom:26px;
+}
+.about-pending{
+  margin-top:14px;font-size:15px;line-height:1.6;color:var(--ink-mid);
+  max-width:620px;
 }
 
 /* ── Footer ─────────────────────────────────────────────────── */

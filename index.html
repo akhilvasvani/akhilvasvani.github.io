@@ -52,9 +52,9 @@
 <nav class="nav" id="nav">
   <a href="/" class="nav-brand">Akhil Vasvani</a>
   <div class="nav-links">
-    <a href="#work">Work</a>
-    <a href="#about">About</a>
-    <a href="/Akhil-Vasvani-AI-Solutions-Engineer.pdf" download class="btn btn-ghost btn-sm">Download résumé ↓</a>
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
   </div>
 </nav>
 
@@ -64,11 +64,12 @@
   <div class="hero-grid">
     <div>
       <div class="eyebrow">AI Solutions Engineer · Open to new roles</div>
-      <h1>I build AI systems for workflows that cannot afford <mark>to be wrong</mark>.</h1>
-      <p class="hero-sub">AI Solutions Engineer. I identify business processes ripe for reinvention and rebuild them with an AI-first mindset.</p>
+      <h1>Listen more, ship faster</h1>
+      <p class="hero-sub">Hi there, I'm Akhil. I build AI systems that <mark>cannot afford to be wrong</mark>. If you'd like to learn more about my <a href="/career" class="hero-link">experiences</a>, please check out my <a href="/about" class="hero-link">bio</a>, <a href="/career#projects" class="hero-link">projects</a>, and <a href="/blog" class="hero-link">writings</a>.</p>
       <div class="hero-cta-row">
-        <a href="/work/builddiff" class="btn">View case study →</a>
+        <a href="/career" class="btn">View Career →</a>
         <a href="/Akhil-Vasvani-AI-Solutions-Engineer.pdf" download class="btn btn-ghost">Download résumé ↓</a>
+        <a href="/blog" class="btn btn-ghost">Read Blog →</a>
       </div>
     </div>
 
@@ -76,245 +77,25 @@
   </div>
 </section>
 
-<!-- How I work / Profile -->
-<section class="intro shell">
-  <div class="intro-grid">
-    <div>
-      <div class="eyebrow">How I work</div>
-      <p class="intro-body">I sit shoulder-to-shoulder with the people doing the work, learn their workflows in depth, then design, prototype, and ship the systems that change how those teams operate. The intersection of business problems, modern AI, and pragmatic engineering is where I do my best work.</p>
-    </div>
-    <div>
-      <div class="eyebrow">Profile</div>
-      <div class="profile-facts">
-        <div>
-          <div class="fact-key">Role</div>
-          <div class="fact-val">AI Solutions Engineer</div>
-        </div>
-        <div>
-          <div class="fact-key">Company</div>
-          <div class="fact-val">WebMD / Medscape (Internet Brands)</div>
-        </div>
-        <div>
-          <div class="fact-key">Education</div>
-          <div class="fact-val">Johns Hopkins University
-B.S. + M.S. Electrical Engineering</div>
-        </div>
-        <div>
-          <div class="fact-key">Credential</div>
-          <div class="fact-val">Perplexity Business Fellow, 2025</div>
-        </div>
-        <div>
-          <div class="fact-key">Based</div>
-          <div class="fact-val">New York, ET</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BuildDiff — flagship -->
-<section class="flagship" id="work">
-  <div class="shell">
-    <div class="flagship-inner">
-      <div class="gutter-mark">Δ</div>
-      <div>
-        <div class="flagship-grid">
-          <div>
-            <div class="eyebrow">Flagship project</div>
-            <h2 class="flagship-title">BuildDiff</h2>
-            <p class="flagship-oneliner">A deterministic comparison platform for regulated web content</p>
-            <div class="flagship-body">
-              <p>Copyeditors, QA validators, and front-end developers at Medscape were reviewing web builds by hand, checking text, styling, markup, images, layout, and tracking links across versions. A missed editorial edit in a medically regulated environment is a compliance problem, not a typo.</p>
-              <p>I designed and built BuildDiff to replace the legacy tooling and the manual passes around it. It compares live URLs and HTML files across six layers and presents results through Visual, Source Code, and Overlay views, with export to marked-up PDF and post-merge HTML. It runs in production today.</p>
-              <p>The comparison engine is fully deterministic. In a medical-legal workflow, results have to be reproducible and explainable before anyone will act on them. The AI layer, LangGraph triage and plain-language summarization, sits on top of that engine, read-only, and never as the source of truth.</p>
-            </div>
-            <div class="chips">
-              <div class="chip">
-                <span class="chip-n">90%</span>
-                <span class="chip-l">reduction in missed editorial edits</span>
-              </div>
-              <div class="chip">
-                <span class="chip-n">$300K</span>
-                <span class="chip-l">annual savings</span>
-              </div>
-            </div>
-            <div class="flagship-cta">
-              <a href="/work/builddiff" class="btn cs-cta">View case study →</a>
-            </div>
-          </div>
-          <div class="flagship-shot">
-            <div class="diff-visual-head">
-              <span>Overlay view</span><span>Source view</span>
-            </div>
-            <div class="diff-visual-body">
-              <div class="diff-pane">
-                <p class="add">Layout, image, and markup changes are washed in <mark>amber</mark> directly over the rendered page.</p>
-              </div>
-              <div class="diff-pane">
-                <p>Line-level HTML and text diffs render side by side for exact review.</p>
-              </div>
-            </div>
-            <div class="diff-caption">Schematic — BuildDiff screenshots to be added</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Perplexity — second case study -->
-<section class="case-second shell">
-  <div class="case-card">
-    <div>
-      <div class="eyebrow">Second case study</div>
-      <h2 class="case-title">Perplexity Enterprise Pro. Eight shipped workflows, 12,177 hours</h2>
-      <p class="case-oneliner">Rolled out an enterprise AI platform to 100+ active users, then built the eight workflows that made it stick</p>
-    </div>
-    <div>
-      <div class="case-metrics">
-        <span class="case-metric">12,177 hrs/yr</span>
-        <span class="case-metric">8 workflows shipped</span>
-        <span class="case-metric">6 wks → 33 min</span>
-      </div>
-      <a href="/work/perplexity" class="link-arrow cs-cta">View case study →</a>
-    </div>
-  </div>
-</section>
-
-<!-- What I build -->
-<section class="build shell">
-  <div class="gutter">
-    <div class="gutter-mark">+</div>
-    <div>
-      <div class="build-head">
-        <div class="eyebrow">Capability</div>
-        <h2 class="build-title">What I build</h2>
-      </div>
-      <div class="build-grid">
-        <div class="build-card">
-          <div class="build-card-title">Build and deploy the system</div>
-          <p>I write the pipeline, the comparison engine, the agent, the integration. Deterministic where the workflow demands reproducibility, model-driven where judgment helps. Then I get it hosted, in whatever environment the company actually has rather than the one I would pick.</p>
-          <a href="/work/builddiff" class="link-arrow">BuildDiff →</a>
-        </div>
-        <div class="build-card">
-          <div class="build-card-title">Get it into daily use</div>
-          <p>A system nobody trusts is a system nobody runs. I sit with the reviewers, editors, and analysts whose work changes, learn what they have to be able to verify, and build the tool and the training around that.</p>
-          <a href="/work/perplexity" class="link-arrow">Perplexity rollout →</a>
-        </div>
-        <div class="build-card">
-          <div class="build-card-title">Rebuild the workflow around it</div>
-          <p>Most of the value is not in the model. It is in cutting the four manual steps around it. I take apart the existing process, find where the handoffs break, and rebuild the sequence so the system has somewhere to fit.</p>
-          <a href="/work/perplexity#legal-research" class="link-arrow">Legal research workflow →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- About -->
-<section class="about shell" id="about">
-  <div class="gutter">
-    <div class="gutter-mark">//</div>
-    <div>
-      <div class="eyebrow">About</div>
-      <div class="about-body about-body-solo">
-        <p>I build AI systems for enterprises that cannot stop working while I build them.</p>
-        <p>Most of my work happens inside regulated content and research workflows at WebMD and Medscape, where a missed editorial edit is a compliance problem and a hallucinated citation is worse. That constraint shapes the architecture. On BuildDiff, the comparison engine is fully deterministic, because copyeditors and QA validators need results they can reproduce and explain. The AI layer sits on top, read-only, doing triage and summarization. It is never the source of truth. Deciding where the model does not belong is usually the more important design decision.</p>
-        <p>The other half of getting a system into production is knowing what it has to do before you build it. I start with the person whose job is about to change and find out what they check, what they are afraid of getting wrong, and what they would have to see to trust an output. On BuildDiff that meant sitting with proofreaders. On the Health Accreditation project it took five prompt iterations before the tool was usable, because each iteration was really a requirements conversation. When a legal stakeholder tested Perplexity against Lexis and concluded it was broken, the useful move was not defending the tool, it was asking what research work lives outside of Lexis and eats a week. That question produced a project returning 1,976 hours a year.</p>
-        <p>Most of what I do maps to what labs and startups call forward deployed engineering. I came to it through analysis and program management before engineering, which is why I am comfortable in the room where the work happens and in the codebase where it gets fixed. Johns Hopkins EE, B.S. and M.S., machine learning for signal processing. Perplexity Business Fellow, 2025.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Career -->
-<section class="career shell" id="career">
-  <div class="eyebrow">Career</div>
-  <h2 class="flagship-title" style="font-size:28px">Career</h2>
-  <p class="career-intro">Four roles. Each one taught me something the next one needed.</p>
-
-  <div class="career-list">
-    <div class="career-row">
-      <div class="career-date mono">2025 — Present</div>
-      <div>
-        <div class="career-role-line">
-          <div class="career-role">AI Solutions Engineer <span class="career-org">· WebMD / Medscape (Internet Brands)</span></div>
-          <div class="career-loc">New York</div>
-        </div>
-        <div class="career-sub">Formal title: Digital Transformation Lead · AI Enablement, RDHQ</div>
-        <p class="career-desc">Build production AI systems for regulated content and research workflows. Designed and built BuildDiff, a deterministic multi-layer comparison platform now running in production, replacing legacy QA tooling across copyediting, QA validation, and front-end development: 90% fewer missed editorial edits, $300K in annual savings. Rolled out Perplexity Enterprise Pro to 100+ active users across seven business units and shipped the eight workflows behind it, returning 12,177 hours annually. Built an autonomous M&amp;A due-diligence agent that scores 13 technical dimensions in a 33-minute run, against a manual process that took six weeks to six months.</p>
-        <div class="tags">
-          <span class="tag">Gemini</span><span class="tag">Vercel</span><span class="tag">LangGraph</span><span class="tag">Agent Pipelines</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="career-row">
-      <div class="career-date mono">2021 — 2025</div>
-      <div>
-        <div class="career-role-line">
-          <div class="career-role">Technical Program Manager <span class="career-org">· WebMD / Medscape (Internet Brands)</span></div>
-          <div class="career-loc">New York</div>
-        </div>
-        <p class="career-desc">Shipped software and process systems across 4 teams in digital healthcare advertising environments, owning delivery from requirements through production handoff. Worked between engineering, product management, and business operations to get systems past the integration and compliance obstacles that stall internal tools. This is where I learned that the hard part of an enterprise system is rarely the code, it is in the people.</p>
-        <div class="tags">
-          <span class="tag">Cross-Functional Delivery</span><span class="tag">Enterprise Systems</span><span class="tag">Production Handoff</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="career-row">
-      <div class="career-date mono">2020 — 2021</div>
-      <div>
-        <div class="career-role-line">
-          <div class="career-role">Business Analyst <span class="career-org">· TCG Digital</span></div>
-          <div class="career-loc">New York</div>
-        </div>
-        <p class="career-desc">Delivered analytical systems directly to government clients, owning requirements, build, presentation, and the accountability that follows a system into production. Learned to translate what a client says they want into what their workflow actually needs, which is the skill every solutions engineering role depends on and most engineers never get trained in.</p>
-        <div class="tags">
-          <span class="tag">SQL</span><span class="tag">Client Delivery</span><span class="tag">Requirements Engineering</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="career-row">
-      <div class="career-date mono">2019</div>
-      <div>
-        <div class="career-role-line">
-          <div class="career-role">Graduate Technical Intern <span class="career-org">· INTEL</span></div>
-          <div class="career-loc">Bangalore, India</div>
-        </div>
-        <p class="career-desc">Built a proof-of-concept for an AI meeting-transcription app. First production code I wrote.</p>
-        <div class="tags">
-          <span class="tag">NLP</span><span class="tag">Python</span><span class="tag">PyTorch</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="career-edu mono">Johns Hopkins University · B.S. and M.S., Electrical Engineering · Machine learning for signal processing</div>
-  </div>
-
-  <div class="career-resume">
-    <a href="/Akhil-Vasvani-AI-Solutions-Engineer.pdf" download class="link-arrow">
-      Download résumé (PDF) ↓
-    </a>
-  </div>
-</section>
-
 <!-- Contact -->
-<section class="contact shell" id="contact">
-  <div class="eyebrow">Contact</div>
-  <h2 class="contact-head">Hire me</h2>
-  <div class="contact-body">
-    <p>I am looking for AI Solutions Engineer roles, including forward deployed engineering roles, at AI labs, AI startups, and enterprise AI companies.</p>
-  </div>
-  <div class="contact-actions">
-    <a href="mailto:sonofhotmale@gmail.com?subject=Role%20opportunity" class="btn">Email me</a>
-    <a href="/Akhil-Vasvani-AI-Solutions-Engineer.pdf" download class="btn btn-ghost">Download résumé ↓</a>
-  </div>
-  <div class="contact-utility">
-    <a href="https://linkedin.com/in/akhilvasvani" target="_blank" rel="noreferrer">LinkedIn</a>
-    <a href="https://github.com/akhilvasvani" target="_blank" rel="noreferrer">GitHub</a>
+<section class="contact" id="contact">
+  <div class="shell">
+    <div class="eyebrow">Contact</div>
+    <h2 class="contact-head">Looking for an AI Solutions Engineer? Let's talk.</h2>
+    <div class="contact-channels">
+      <a href="mailto:sonofhotmale@gmail.com?subject=Role%20opportunity" class="channel-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        Email
+      </a>
+      <a href="https://linkedin.com/in/akhilvasvani" target="_blank" rel="noreferrer" class="channel-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7"/><circle cx="8" cy="7" r="0.6" fill="currentColor"/><path d="M12 17v-4a2.5 2.5 0 015 0v4"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/akhilvasvani" target="_blank" rel="noreferrer" class="channel-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.2-4-2-6-2.5"/><path d="M15 21v-3.4a3 3 0 00-.8-2.2c2.7-.3 5.5-1.3 5.5-6a4.7 4.7 0 00-1.3-3.2 4.4 4.4 0 00-.1-3.2s-1-.3-3.4 1.3a11.6 11.6 0 00-6 0C6.5 2 5.5 2.3 5.5 2.3a4.4 4.4 0 00-.1 3.2A4.7 4.7 0 004 8.7c0 4.6 2.8 5.7 5.5 6a3 3 0 00-.8 2.1V21"/></svg>
+        GitHub
+      </a>
+    </div>
   </div>
 </section>
 </main>
