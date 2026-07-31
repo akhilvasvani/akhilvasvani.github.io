@@ -21,31 +21,36 @@
 
 <main>
 <header class="page-head shell">
-  <img src="../assets/img/hero-portrait-400.jpg" srcset="../assets/img/hero-portrait-400.jpg 1x, ../assets/img/hero-portrait-800.jpg 2x" width="140" height="175" alt="Akhil Vasvani" class="about-portrait">
+  <img src="../assets/img/about-portrait-280.jpg" srcset="../assets/img/about-portrait-280.jpg 1x, ../assets/img/about-portrait-560.jpg 2x" width="140" height="175" alt="Akhil Vasvani" class="about-portrait">
   <h1 class="page-title">About</h1>
 </header>
 
-<section class="page-section shell">
-  <div class="gutter">
-    <div class="gutter-mark">//</div>
-    <div class="about-body about-body-solo">
-      <p>I build AI systems for enterprises that cannot stop working while I build them.</p>
-      <p>Most of my work happens inside regulated content and research workflows at WebMD and Medscape, where a missed editorial edit is a compliance problem and a hallucinated citation is worse. That constraint shapes the architecture. On BuildDiff, the comparison engine is fully deterministic, because copyeditors and QA validators need results they can reproduce and explain. The AI layer sits on top, read-only, doing triage and summarization. It is never the source of truth. Deciding where the model does not belong is usually the more important design decision.</p>
-      <p>The other half of getting a system into production is knowing what it has to do before you build it. I start with the person whose job is about to change and find out what they check, what they are afraid of getting wrong, and what they would have to see to trust an output. On BuildDiff that meant sitting with proofreaders. On the Health Accreditation project it took five prompt iterations before the tool was usable, because each iteration was really a requirements conversation. When a legal stakeholder tested Perplexity against Lexis and concluded it was broken, the useful move was not defending the tool, it was asking what research work lives outside of Lexis and eats a week. That question produced a project returning 1,976 hours a year.</p>
-      <p>Most of what I do maps to what labs and startups call forward deployed engineering. I came to it through analysis and program management before engineering, which is why I am comfortable in the room where the work happens and in the codebase where it gets fixed. Johns Hopkins EE, B.S. and M.S., machine learning for signal processing. Perplexity Business Fellow, 2025.</p>
-    </div>
+<section class="page-section shell" id="the-story">
+  <div class="eyebrow">The story</div>
+  <div class="about-body about-body-solo">
+    <p>About three and a half years ago, my life changed: ChatGPT arrived. At first I used it for emails and poetry, but as the models got smarter, so did what I could do with them, summarizing dense papers, explaining concepts I'd never quite grasped, turning "I don't get this" into "oh, that's actually simple." We were all warned it would hallucinate. It did. I pressed on anyway.</p>
+    <p>When the "thinking" models showed up, my software skills leveled up with them. I started writing automations left and right. Then Claude Code and Cursor arrived, and I started cooking. Not clever prompts, real workflows that ran on their own.</p>
   </div>
 </section>
 
-<section class="page-section shell" id="career-story">
-  <div class="eyebrow">Story</div>
-  <h2 class="page-section-title">My career story → FDE</h2>
-  <p class="about-pending">Writing in progress.</p>
+<section class="page-section shell" id="where-that-led">
+  <div class="eyebrow">Where that led</div>
+  <div class="about-body about-body-solo">
+    <p>Today I'm the lead AI Solutions Engineer on the AI Enablement team at WebMD. I embed with teams and map how they actually work before I touch any code. My flagship project is BuildDiff, a deterministic comparison engine that checks front-end builds for every kind of change: text, styling, code, layout, and tracking links. It runs before anything goes live in a regulated medical content environment. I layered an AI triage step on top with LangGraph to summarize what changed in plain language, but the deterministic core is the part that has to be right every time. Building it taught me as much about hosting on legacy infrastructure and working around privacy constraints as it did about model design.</p>
+    <p>Along the way, I also led WebMD's Perplexity Pro rollout and became a Perplexity Business Fellow. On my previous team, the knowledge base and automations I built became the groundwork for what's now a dedicated Digital Assistant Twin project. This past year I also ran AI Literacy Camp, demos and prompting workshops that reached 700+ people across my entire organization, plus playbooks people could actually use with Gemini and Google's AI tools. I bring the same instinct to local AI meetups in NYC, where I show up and sometimes speak: if something's working for me, I want it in other people's hands too.</p>
+  </div>
+</section>
+
+<section class="page-section shell" id="how-i-work">
+  <div class="eyebrow">How I work</div>
+  <div class="about-body about-body-solo">
+    <p>I lead with implementing, shipping working systems into production, and treat teaching and rebuilding legacy processes as the supporting moves that make it actually stick. Abstract AI strategy that never ships doesn't interest me. What does: understanding the humans and systems already in place, then building the thing people will actually use.</p>
+  </div>
 </section>
 </main>
 
 <footer>
-  <div class="footer-status">Currently: open to AI Solutions Engineer roles · New York, ET · Replies in ~48h</div>
+  <div class="footer-status">Currently, open to AI Solutions Engineer roles · New York, ET</div>
 </footer>
 
 <script>
