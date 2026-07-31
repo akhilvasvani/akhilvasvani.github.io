@@ -27,43 +27,52 @@
 </header>
 
 <section class="page-section shell">
-  <div class="blog-list">
-    <a href="https://lnkd.in/p/g3K5fJND" target="_blank" rel="noopener noreferrer" class="blog-row">
+  <div class="blog-filters" role="group" aria-label="Filter posts by category">
+    <button type="button" class="blog-filter is-active" data-filter="all" aria-pressed="true">All</button>
+    <button type="button" class="blog-filter" data-filter="notes" aria-pressed="false">Notes</button>
+    <button type="button" class="blog-filter" data-filter="posts" aria-pressed="false">Posts</button>
+    <button type="button" class="blog-filter" data-filter="tutorials" aria-pressed="false">Tutorials</button>
+    <button type="button" class="blog-filter" data-filter="deep-dives" aria-pressed="false">Deep Dives</button>
+  </div>
+
+  <div class="blog-list" id="blog-list">
+    <a href="https://lnkd.in/p/g3K5fJND" target="_blank" rel="noopener noreferrer" class="blog-row" data-category="posts">
       <time class="blog-date mono" datetime="2026-02-23">Feb 23, 2026</time>
-      <div class="blog-row-title">Automation Tool on Plume Project</div>
+      <div class="blog-row-title">Fact-Checking Validation Tool for Plume Project</div>
       <span class="blog-read">Read on LinkedIn
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
       </span>
     </a>
-    <a href="https://lnkd.in/p/g42YQkbA" target="_blank" rel="noopener noreferrer" class="blog-row">
+    <a href="https://lnkd.in/p/g42YQkbA" target="_blank" rel="noopener noreferrer" class="blog-row" data-category="posts">
       <time class="blog-date mono" datetime="2026-01-30">Jan 30, 2026</time>
       <div class="blog-row-title">Flip7 App</div>
       <span class="blog-read">Read on LinkedIn
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
       </span>
     </a>
-    <a href="https://lnkd.in/p/gxBe8VgW" target="_blank" rel="noopener noreferrer" class="blog-row">
+    <a href="https://lnkd.in/p/gxBe8VgW" target="_blank" rel="noopener noreferrer" class="blog-row" data-category="posts">
       <time class="blog-date mono" datetime="2026-01-27">Jan 27, 2026</time>
       <div class="blog-row-title">Book Indexer: Multi-Agent Use Case</div>
       <span class="blog-read">Read on LinkedIn
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
       </span>
     </a>
-    <a href="https://lnkd.in/p/g3vhNPWf" target="_blank" rel="noopener noreferrer" class="blog-row">
+    <a href="https://lnkd.in/p/g3vhNPWf" target="_blank" rel="noopener noreferrer" class="blog-row" data-category="posts">
       <time class="blog-date mono" datetime="2026-01-23">Jan 23, 2026</time>
-      <div class="blog-row-title">Health Accreditation</div>
+      <div class="blog-row-title">Health Accreditation Space</div>
       <span class="blog-read">Read on LinkedIn
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
       </span>
     </a>
-    <a href="https://lnkd.in/p/gBRwCQc2" target="_blank" rel="noopener noreferrer" class="blog-row">
+    <a href="https://lnkd.in/p/gBRwCQc2" target="_blank" rel="noopener noreferrer" class="blog-row" data-category="posts">
       <time class="blog-date mono" datetime="2025-12-18">Dec 18, 2025</time>
-      <div class="blog-row-title">Data Scrape: URL for Legal Website Legacy Migration</div>
+      <div class="blog-row-title">Data Scrape: URLs For Legal Website Legacy Migration</div>
       <span class="blog-read">Read on LinkedIn
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H9M17 7v8"/></svg>
       </span>
     </a>
   </div>
+  <p class="blog-none" id="blog-none" hidden>No posts in this category yet.</p>
 </section>
 </main>
 
@@ -76,6 +85,34 @@ const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 8);
 }, { passive: true });
+
+// Category filter. Rows carry data-category, so re-categorising a post is a
+// one-word edit in the markup with no JS change.
+const filters = document.querySelectorAll('.blog-filter');
+const rows = document.querySelectorAll('.blog-row');
+const noneMsg = document.getElementById('blog-none');
+const list = document.getElementById('blog-list');
+
+function applyFilter(value) {
+  let shown = 0;
+  rows.forEach(row => {
+    const match = value === 'all' || row.dataset.category === value;
+    row.hidden = !match;
+    if (match) shown++;
+  });
+  // Hide the whole list when empty, otherwise its closing border floats alone.
+  list.hidden = shown === 0;
+  noneMsg.hidden = shown > 0;
+  filters.forEach(btn => {
+    const active = btn.dataset.filter === value;
+    btn.classList.toggle('is-active', active);
+    btn.setAttribute('aria-pressed', String(active));
+  });
+}
+
+filters.forEach(btn => {
+  btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+});
 </script>
 </body>
 </html>
