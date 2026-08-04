@@ -364,10 +364,6 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
   font-family:var(--f-mono);font-size:10px;color:var(--ink-mid);
   letter-spacing:.08em;text-transform:uppercase;flex-shrink:0;
 }
-.career-sub{
-  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-mid);
-  margin-top:6px;
-}
 .career-desc{margin-top:12px;font-size:14.5px;line-height:1.6;color:var(--ink);max-width:620px}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
 .tag{
@@ -474,6 +470,10 @@ main > .page-section:last-child{padding-bottom:88px}
 }
 .edu-school{font-family:var(--f-display);font-size:18px;font-weight:600;color:var(--ink);letter-spacing:-.01em}
 .edu-detail{margin-top:8px;font-size:14.5px;line-height:1.6;color:var(--ink-mid)}
+/* Stacked degree lines sit tighter than the first detail line, so they read as
+   one entry rather than separate blocks. */
+.edu-detail + .edu-detail{margin-top:2px}
+.edu-focus{margin-top:8px;font-family:var(--f-mono);font-size:12px}
 
 /* ── Blog ───────────────────────────────────────────────────── */
 .blog-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
