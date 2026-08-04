@@ -42,10 +42,10 @@
       <p>Copyeditors, QA validators, and front-end developers at Medscape were reviewing web builds by hand, checking text, styling, markup, images, layout, and tracking links across versions. A missed editorial edit in a medically regulated environment is a compliance problem, not a typo.</p>
 
       <h2>Architecture</h2>
-      <p>I designed and built BuildDiff to replace the legacy tooling and the manual passes around it. It compares live URLs and HTML files across six layers and presents results through Visual, Source Code, and Overlay views, with export to marked-up PDF and post-merge HTML. It runs in production today.</p>
+      <p>I designed and built BuildDiff to replace the legacy tooling and the manual review passes around it. It compares live URLs and HTML files across six layers, then shows the differences in three views (Visual, Source Code, and Overlay) and exports to marked-up PDF or post-merge HTML. It's in production now.</p>
 
       <h2>The key design decision</h2>
-      <p>The comparison engine is fully deterministic. In a medical-legal workflow, results have to be reproducible and explainable before anyone will act on them. The AI layer, Claude API triage and plain-language summarization, sits on top of that engine, read-only, and never as the source of truth.</p>
+      <p>The comparison engine is fully deterministic. In a medical-legal workflow, results have to be reproducible and explainable before anyone will act on them, so the AI layer stays read-only: Claude handles triage and plain-language summaries, but it's never the source of truth.</p>
 
       <h2>What went wrong</h2>
       <p>Getting BuildDiff live inside WebMD's older DevOps environment was the constraint I underestimated. The deterministic engine was finished well before it had somewhere to run.</p>

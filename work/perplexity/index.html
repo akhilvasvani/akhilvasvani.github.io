@@ -42,12 +42,12 @@
 
       <h2 id="rollout">The rollout: 100+ users, no mandate</h2>
       <p>I launched Perplexity Enterprise Pro at Internet Brands! Senior managers across health, legal, automotive, and contractors came in first and their teams followed, reaching 100+ active users across seven business units — Legal, Editorial, Product, Program Management, Medscape Education, Compliance, and Data Science. I validated HIPAA and SOC2 compliance with the VP of Engineering before a single license went out.</p>
-      <p>On paper that was the win. In practice the real work started immediately after. In breakout sessions I found that a significant number of users thought Perplexity was interchangeable with ChatGPT and were using it to rewrite emails and generate images. Not wrong, but nowhere near the tool's value. We had headcount, not changed behavior.</p>
+      <p>On paper that was the win. In practice the real work started immediately after. In breakout sessions I found that a significant number of users thought Perplexity was interchangeable with ChatGPT and were using it to rewrite emails and generate images. They weren't wrong, but they were using a research engine to do what any chatbot could. We had headcount, not changed behavior.</p>
       <p>So I stopped presenting the platform in the abstract and started asking one question: what's slowing you down this week? Repeated across dozens of sessions, that question produced the workflows below.</p>
 
       <h2 id="sso">SSO Tear-Down: the autonomous M&amp;A due-diligence agent</h2>
-      <p>The strongest engineering piece of the rollout. The product management team was evaluating acquisition targets' SSO architecture, data migration readiness, compliance posture, and transactional email systems — historically six weeks to six months of manual research per target.</p>
-      <p>I built an autonomous agent pipeline on seven persistent skill files inside a Perplexity Space running on computer use. It scrapes public endpoints, enumerates subdomains, inspects server configurations, and scores 13 technical dimensions against a set of auto-fail triggers. A single run takes about 33 minutes. In a pilot audit of an active acquisition target, it surfaced critical findings that materially changed the deal's timing and structure — the kind of thing manual diligence might have missed entirely. The hours saved were the smaller half of the value.</p>
+      <p>The strongest engineering piece of the rollout. The product management team was evaluating acquisition targets' SSO architecture, data migration readiness, compliance posture, and transactional email systems. Historically that was six weeks to six months of manual research per target.</p>
+      <p>I built an autonomous agent pipeline on seven persistent skill files inside a Perplexity Space running on computer use. It scrapes public endpoints, enumerates subdomains, inspects server configurations, and scores 13 technical dimensions against a set of auto-fail triggers. A single run takes about 33 minutes. In a pilot audit of an active acquisition target, it surfaced critical findings that changed the deal's timing and structure. Manual diligence might have missed them entirely, and honestly the time savings mattered less than what the agent caught.</p>
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">948 hrs/yr</span>
@@ -117,8 +117,8 @@
       </div>
 
       <h2 id="legal-research">Legal Spaces: research outside Lexis</h2>
-      <p>A stakeholder on the legal team tested Perplexity against Lexis, a purpose-built platform with a proprietary case law library, and concluded the tool was broken. The concern was real; the conclusion was wrong. This is the most common failure mode I see: evaluate a new tool against the one task where the incumbent is strongest, declare it settled, walk away.</p>
-      <p>I didn't defend Perplexity's case law retrieval. I reframed the question — Lexis should do Lexis work, so what research lives outside Lexis and eats a week? That produced Legal Spaces: custom Spaces with source isolation hardcoded to official government domains, structured prompt frameworks per research type, and a task-isolation strategy that splits complex queries into sections. Editors had been spending full weeks hand-building multi-state comparison charts, things like 50-state minimum wage matrices. I ran a four-week onboarding sprint with sequential capability demos.</p>
+      <p>A stakeholder on the legal team tested Perplexity against Lexis, a purpose-built platform with a proprietary case law library, and concluded the tool was broken. They were right that Perplexity lost to Lexis on case law. That just wasn't the question worth asking. It's the most common failure mode I see: test a new tool against the one task where the incumbent is strongest, declare it settled, and walk away.</p>
+      <p>I didn't defend Perplexity's case law retrieval. So I reframed the question. Lexis should do Lexis work; what research lives outside Lexis and eats a week? That produced Legal Spaces: custom Spaces with source isolation hardcoded to official government domains, structured prompt frameworks per research type, and a task-isolation strategy that splits complex queries into sections. Editors had been spending full weeks hand-building multi-state comparison charts, things like 50-state minimum wage matrices. I ran a four-week onboarding sprint with sequential capability demos.</p>
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">1,976 hrs/yr</span>
@@ -127,11 +127,15 @@
       </div>
 
       <h2 id="health-accreditation">Health Accreditation Space</h2>
-      <p>A stakeholder was manually reading digital health articles against NCQA compliance guidelines, documenting which sections passed and which failed. I built a Perplexity Space around her evaluation criteria. It took five prompt iterations before the output was genuinely usable, because the prompting process was really a requirements-gathering process — I was learning her job while building her tool. She cleared three weeks of backlogged work in one week.</p>
+      <p>A stakeholder was manually reading digital health articles against NCQA compliance guidelines, documenting which sections passed and which failed. I built a Perplexity Space around her evaluation criteria. It took five prompt iterations before the output was usable, and each pass surfaced something about her evaluation criteria she hadn't thought to say out loud. By the fifth version the Space encoded her reading of the NCQA guidelines, not just the guidelines themselves.</p>
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">1,976 hrs/yr</span>
           <span class="case-result-l">reclaimed annually, a 95% reduction</span>
+        </div>
+        <div class="case-result-chip">
+          <span class="case-result-n">3 wks → 1 wk</span>
+          <span class="case-result-l">backlogged work cleared, before vs. after</span>
         </div>
       </div>
 
