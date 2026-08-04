@@ -63,6 +63,59 @@
   padding:10px 14px;margin-top:14px;
 }
 
+/* ── Impact table ───────────────────────────────────────────── */
+/* Six columns don't fit 375px. The wrapper scrolls, never the page. */
+.case-table-wrap{
+  margin-top:20px;overflow-x:auto;
+  border:1px solid var(--rule);border-radius:var(--radius);
+  -webkit-overflow-scrolling:touch;
+}
+/* A data table shouldn't be bound by the 680px reading measure. Break it out
+   of the prose column where there's room, so project names stop wrapping. */
+@media(min-width:1000px){
+  .case-table-wrap{width:calc(100% + 210px);margin-left:-105px;margin-right:-105px}
+}
+.case-table{
+  border-collapse:collapse;width:100%;min-width:680px;
+  font-family:var(--f-display);font-size:13px;
+}
+.case-table th[scope="row"]{font-weight:600;min-width:210px}
+.case-table caption{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-mid);
+  text-align:left;padding:12px 14px;border-bottom:1px solid var(--rule);
+}
+.case-table th,
+.case-table td{
+  padding:10px 14px;text-align:left;
+  border-bottom:1px solid var(--rule);vertical-align:top;
+}
+.case-table thead th{
+  font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-mid);font-weight:500;
+  white-space:nowrap;
+}
+/* Numerals right-align in mono so columns compare cleanly down the page. */
+.case-table .num{
+  font-family:var(--f-mono);text-align:right;white-space:nowrap;
+  font-variant-numeric:tabular-nums;
+}
+.case-table .domain{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;
+  color:var(--ink-mid);white-space:nowrap;
+}
+.case-table tbody tr:last-child th,
+.case-table tbody tr:last-child td{border-bottom:none}
+.case-table .row-total th,
+.case-table .row-total td{
+  background:var(--paper-sunk);font-weight:700;color:var(--ink);
+  border-top:1px solid var(--ink-mid);
+}
+.case-table-basis{
+  font-family:var(--f-mono);font-size:11.5px;color:var(--ink-mid);
+  margin-top:12px;line-height:1.7;
+}
+
 /* Results */
 .case-results{
   margin-top:20px;display:flex;flex-wrap:wrap;gap:14px;

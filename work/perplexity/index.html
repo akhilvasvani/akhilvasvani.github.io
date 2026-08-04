@@ -38,10 +38,10 @@
     </header>
 
     <div class="case-body">
-      <p><strong>Eight workflows shipped. 12,177 hours reclaimed annually. Six detailed below.</strong></p>
+      <p><strong>Eight workflows shipped. 12,177 hours reclaimed annually. Seven detailed below.</strong></p>
 
       <h2 id="rollout">The rollout: 100+ users, no mandate</h2>
-      <p>I launched Perplexity Enterprise Pro big-bang. Senior managers across health, legal, automotive, and contractors came in first and their teams followed, reaching 100+ active users across seven business units — Legal, Editorial, Product, Program Management, Medscape Education, Compliance, and Data Science. I validated HIPAA and SOC2 compliance with the VP of Engineering before a single license went out.</p>
+      <p>I launched Perplexity Enterprise Pro at Internet Brands! Senior managers across health, legal, automotive, and contractors came in first and their teams followed, reaching 100+ active users across seven business units — Legal, Editorial, Product, Program Management, Medscape Education, Compliance, and Data Science. I validated HIPAA and SOC2 compliance with the VP of Engineering before a single license went out.</p>
       <p>On paper that was the win. In practice the real work started immediately after. In breakout sessions I found that a significant number of users thought Perplexity was interchangeable with ChatGPT and were using it to rewrite emails and generate images. Not wrong, but nowhere near the tool's value. We had headcount, not changed behavior.</p>
       <p>So I stopped presenting the platform in the abstract and started asking one question: what's slowing you down this week? Repeated across dozens of sessions, that question produced the workflows below.</p>
 
@@ -50,8 +50,8 @@
       <p>I built an autonomous agent pipeline on seven persistent skill files inside a Perplexity Space running on computer use. It scrapes public endpoints, enumerates subdomains, inspects server configurations, and scores 13 technical dimensions against a set of auto-fail triggers. A single run takes about 33 minutes. In a pilot audit of an active acquisition target, it surfaced critical findings that materially changed the deal's timing and structure — the kind of thing manual diligence might have missed entirely. The hours saved were the smaller half of the value.</p>
       <div class="case-results">
         <div class="case-result-chip">
-          <span class="case-result-n">228 hrs/yr</span>
-          <span class="case-result-l">reclaimed annually</span>
+          <span class="case-result-n">948 hrs/yr</span>
+          <span class="case-result-l">reclaimed annually, a 98.8% reduction</span>
         </div>
         <div class="case-result-chip">
           <span class="case-result-n">6 wks → 33 min</span>
@@ -67,8 +67,8 @@
       <p>Writers on the Medscape Interactives team were spending 4 to 16 hours per quiz researching recent peer-reviewed guidelines, writing five clinical questions, sourcing each answer, and formatting the output. I built three interconnected persistent skill files for Perplexity's computer use feature: one governing a structured nine-phase flow from research through post-session capture, a second tracking factual error severities and style preferences as a living feedback database, and a third defining overrides for pharmacotherapy-specific content. The system reached roughly a 90% completion rate, two quizzes passed editorial validation and went live, and the organization retired its external quiz vendor.</p>
       <div class="case-results">
         <div class="case-result-chip">
-          <span class="case-result-n">2,076 hrs/yr</span>
-          <span class="case-result-l">reclaimed annually</span>
+          <span class="case-result-n">2,075.7 hrs/yr</span>
+          <span class="case-result-l">reclaimed annually, a 99.8% reduction</span>
         </div>
         <div class="case-result-chip">
           <span class="case-result-n">Vendor retired</span>
@@ -80,8 +80,8 @@
       <p>Editors on Nolo's legal editorial team were manually indexing 500-to-600-page legal textbooks, compiling 400 to 600 main entries and 800 to 1,200 subentries per volume across multiple days per book. I built a multi-agent workflow in a dedicated Perplexity Space that splits manuscripts into alphabetical chunks to avoid context-window overflow, then processes each chunk against uploaded style guides and term reference files. One editor pioneered an edition-by-edition technique that feeds the previous index in and tracks only the page shifts in the new manuscript. A human verification layer closes it out: editors spot-check 30 to 40 entries for page alignment and audit for encoding errors.</p>
       <div class="case-results">
         <div class="case-result-chip">
-          <span class="case-result-n">668 hrs/yr</span>
-          <span class="case-result-l">reclaimed annually</span>
+          <span class="case-result-n">1,797.5 hrs/yr</span>
+          <span class="case-result-l">reclaimed annually, a 99.9% reduction</span>
         </div>
         <div class="case-result-chip">
           <span class="case-result-n">90 days → ~1 hr</span>
@@ -89,12 +89,12 @@
         </div>
       </div>
 
-      <h2 id="fact-check">Medical Health Content Fact Check Tool</h2>
+      <h2 id="fact-check">Fact-Check Tool for Medical Health Content Summarization</h2>
       <p>Reviewers on the MedAffairs team were spending 12 hours a week verifying AI-generated clinical content against source documents, then hunting exact page citations by hand. I built an accuracy scorer that takes a passage, checks it sentence by sentence against uploaded internal documents, and returns a structured report: verbatim source quotes, dual page numbers for both PDF index and printed page, and a confidence score. I disabled web search entirely so the model could not reach outside sources, and cross-tested the production prompt across three models before finalizing.</p>
       <div class="case-results">
         <div class="case-result-chip">
-          <span class="case-result-n">622 hrs/yr</span>
-          <span class="case-result-l">reclaimed annually</span>
+          <span class="case-result-n">622.3 hrs/yr</span>
+          <span class="case-result-l">reclaimed annually, a 99.7% reduction</span>
         </div>
         <div class="case-result-chip">
           <span class="case-result-n">12 hrs/wk → ~2 min</span>
@@ -107,15 +107,14 @@
       <p>Nobody assigned me the project. I volunteered, and delivered an MVP in three days: a pipeline calling the Perplexity Search API once per state with structured queries filtered to .gov domains, batched into roughly ten calls, returning clean JSON — state, RFP title, source URL, publication date, snippet, confidence flag. I piloted Perplexity's computer use feature on ten state sites to navigate to the right page and pull the RFP PDF without manual browsing.</p>
       <div class="case-results">
         <div class="case-result-chip">
-          <span class="case-result-n">2,080 hrs/yr</span>
-          <span class="case-result-l">reclaimed annually</span>
+          <span class="case-result-n">2,075.7 hrs/yr</span>
+          <span class="case-result-l">reclaimed annually, a 99.8% reduction</span>
         </div>
         <div class="case-result-chip">
           <span class="case-result-n">40 hrs/wk → 5 min</span>
           <span class="case-result-l">state RFP discovery, a 99.8% reduction</span>
         </div>
       </div>
-      <p class="case-note">2,080 hours: 40 hrs/week × 52 weeks. This pilot is counted separately from the six-workflow subtotal below.</p>
 
       <h2 id="legal-research">Legal Spaces: research outside Lexis</h2>
       <p>A stakeholder on the legal team tested Perplexity against Lexis, a purpose-built platform with a proprietary case law library, and concluded the tool was broken. The concern was real; the conclusion was wrong. This is the most common failure mode I see: evaluate a new tool against the one task where the incumbent is strongest, declare it settled, walk away.</p>
@@ -123,22 +122,80 @@
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">1,976 hrs/yr</span>
-          <span class="case-result-l">reclaimed annually</span>
+          <span class="case-result-l">reclaimed annually, a 95.0% reduction</span>
         </div>
       </div>
-      <p class="case-note">1,976 hours: 38 hrs/week × 52 weeks</p>
 
       <h2 id="health-accreditation">Health Accreditation Space</h2>
       <p>A stakeholder was manually reading digital health articles against NCQA compliance guidelines, documenting which sections passed and which failed. I built a Perplexity Space around her evaluation criteria. It took five prompt iterations before the output was genuinely usable, because the prompting process was really a requirements-gathering process — I was learning her job while building her tool. She cleared three weeks of backlogged work in one week.</p>
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">1,976 hrs/yr</span>
-          <span class="case-result-l">reclaimed annually, a 95% reduction</span>
+          <span class="case-result-l">reclaimed annually, a 95.0% reduction</span>
         </div>
       </div>
 
       <h2 id="results">Results</h2>
-      <p>The six enterprise workflows — SSO Tear-Down, Interactive Quiz Design, Book Index Citation, Medical Health Content Fact Check, Legal Spaces, and Health Accreditation Space — account for roughly <strong>7,546 hours per year</strong>, about 3.7 full-time employees returned to the organization. The remaining balance of the 12,177-hour total comes from the two workflows not detailed here. The Rural Health pilot is counted separately from both figures.</p>
+
+      <div class="case-table-wrap">
+        <table class="case-table">
+          <caption>All figures annualized</caption>
+          <thead>
+            <tr>
+              <th scope="col">Domain</th>
+              <th scope="col">Project</th>
+              <th scope="col" class="num">Before (hrs/yr)</th>
+              <th scope="col" class="num">After (hrs/yr)</th>
+              <th scope="col" class="num">Hours Saved/yr</th>
+              <th scope="col" class="num">Efficiency Gain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="domain">Legal</td>
+              <th scope="row">Legal Spaces (.gov sourcing framework)</th>
+              <td class="num">2,080</td><td class="num">104</td><td class="num">1,976</td><td class="num">95.0%</td>
+            </tr>
+            <tr>
+              <td class="domain">Legal</td>
+              <th scope="row">Book Index Citation (multi-agent workflow)</th>
+              <td class="num">1,800</td><td class="num">2.5</td><td class="num">1,797.5</td><td class="num">99.9%</td>
+            </tr>
+            <tr>
+              <td class="domain">Health / Medical</td>
+              <th scope="row">Health Accreditation Space</th>
+              <td class="num">2,080</td><td class="num">104</td><td class="num">1,976</td><td class="num">95.0%</td>
+            </tr>
+            <tr>
+              <td class="domain">Health / Medical</td>
+              <th scope="row">Fact-Check Tool for Medical Health Content Summarization</th>
+              <td class="num">624</td><td class="num">1.7</td><td class="num">622.3</td><td class="num">99.7%</td>
+            </tr>
+            <tr>
+              <td class="domain">Health / Medical</td>
+              <th scope="row">Interactive Quiz Design using Computer</th>
+              <td class="num">2,080</td><td class="num">4.3</td><td class="num">2,075.7</td><td class="num">99.8%</td>
+            </tr>
+            <tr>
+              <td class="domain">Cross-functional</td>
+              <th scope="row">Rural Health State Prioritization</th>
+              <td class="num">2,080</td><td class="num">4.3</td><td class="num">2,075.7</td><td class="num">99.8%</td>
+            </tr>
+            <tr>
+              <td class="domain">Cross-functional</td>
+              <th scope="row">SSO Tear-Down using Computer</th>
+              <td class="num">960</td><td class="num">12</td><td class="num">948</td><td class="num">98.8%</td>
+            </tr>
+            <tr class="row-total">
+              <td class="domain">TOTAL</td>
+              <th scope="row"></th>
+              <td class="num">11,704</td><td class="num">232.8</td><td class="num">11,471.2</td><td class="num">98.0%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="case-table-basis">The seven workflows above account for 11,471.2 hrs/yr. The eighth shipped workflow, not detailed here, covers the remaining 705.8 — together making up the 12,177-hour program total.</p>
+
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">12,177 hrs</span>
