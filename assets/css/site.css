@@ -185,7 +185,9 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
   margin-top:22px;font-size:17.5px;line-height:1.58;
   color:var(--ink-mid);max-width:560px;
 }
-.hero-cta-row{margin-top:32px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+/* Single CTA — sits closer to the paragraph it follows so it reads as
+   attached to the intro rather than stranded in whitespace. */
+.hero-cta-row{margin-top:26px}
 /* Inline links inside the hero intro — underlined so they read as
    navigation, not emphasis, against the surrounding body copy. */
 .hero-link{
