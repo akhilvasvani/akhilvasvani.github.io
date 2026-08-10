@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Check Your Politician — Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Check Your Politician: campaign finance and voting records for every LA city official, side by side. Built at Anthropic's LA Claude Impact Lab and extended to all 16 officials.">
+<link rel="canonical" href="https://akhilvasvani.com/work/check-your-politician">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/case.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<section class="case">
+  <div class="case-col">
+    <a href="/career#projects" class="case-back">← Back to projects</a>
+
+    <header class="case-header">
+      <div class="case-eyebrow">Personal project</div>
+      <h1 class="case-h1">Check Your Politician</h1>
+      <p class="case-oneline">Campaign finance and voting records for every LA city official, side by side</p>
+      <dl class="spec-table">
+        <div class="spec-item"><dt>Role</dt><dd>Built with a 4-person hackathon team, extended solo</dd></div>
+        <div class="spec-item"><dt>Origin</dt><dd>Anthropic LA Claude Impact Lab, a one-day hackathon</dd></div>
+        <div class="spec-item"><dt>Coverage</dt><dd>16 LA city officials — the mayor and 15 council districts</dd></div>
+        <div class="spec-item"><dt>Status</dt><dd>Live, auto-updates monthly, open source</dd></div>
+      </dl>
+      <div class="case-links">
+        <a href="https://lapolitician.akhilvasvani.com/index.html" target="_blank" rel="noopener noreferrer" class="link-arrow">View live site →</a>
+        <a href="https://github.com/akhilvasvani/check-your-politician" target="_blank" rel="noopener noreferrer" class="link-arrow">View on GitHub →</a>
+      </div>
+    </header>
+
+    <div class="case-body">
+      <h2 id="problem">The problem</h2>
+      <p>A ballot lists names. It doesn't say who's funding a campaign or how someone has actually voted once they're in office. I hit that gap firsthand this election: reading articles and watching debate clips for hours just to feel confident enough to vote, and still not sure I had the full picture.</p>
+
+      <h2 id="build">What I built</h2>
+      <p>At Anthropic's LA Claude Impact Lab, a one-day hackathon pairing builders with real civic problems, I joined a 4-person team (shoutout Bruna and Matthew) building against LA's June 2026 election. In the day's build window we shipped a working demo covering three officials: campaign donor data pulled from the LA City Ethics Commission, lined up next to each official's voting and proposal record.</p>
+      <p>I kept building after the event, and two additions came directly out of team feedback. Bruna's idea turned a basic donation bar chart into a full donor contribution map, tiles sized by contribution amount and color-coded by donor type (individual, PAC, business), pulled straight from Ethics Commission filings. Matthew's idea added an "Ask AI" box to every official's page, so anyone can ask what a candidate supports on a given issue and get a sourced answer back.</p>
+
+      <h2 id="under-the-hood">Under the hood</h2>
+      <ul>
+        <li><strong>Data:</strong> LA City Ethics Commission campaign contribution filings (data.lacity.org) plus each official's public voting and proposal record</li>
+        <li><strong>Map:</strong> Leaflet, using the City of LA's own adopted council district boundaries (LA GeoHub, 2021)</li>
+        <li><strong>AI Q&amp;A:</strong> Perplexity search, cited sources on every answer</li>
+        <li><strong>Pipeline:</strong> a monthly automated job re-pulls the underlying data and repopulates the site with no manual step</li>
+        <li><strong>Hosting:</strong> Vercel</li>
+      </ul>
+
+      <h2 id="status">Where it stands</h2>
+      <p>The site now covers the mayor and all 15 city council districts, up from the 3 we scoped for the demo. It's live, free, and the repo is open for anyone who wants to extend it, add their own city, or flag where the data's wrong.</p>
+      <div class="case-results">
+        <div class="case-result-chip">
+          <span class="case-result-n">16</span>
+          <span class="case-result-l">LA officials tracked, up from 3 at the demo</span>
+        </div>
+        <div class="case-result-chip">
+          <span class="case-result-n">Monthly</span>
+          <span class="case-result-l">automated data refresh, no manual step</span>
+        </div>
+        <div class="case-result-chip">
+          <span class="case-result-n">Open source</span>
+          <span class="case-result-l">free to use, fork, and correct</span>
+        </div>
+      </div>
+
+      <h2 id="stack">Stack</h2>
+      <div class="case-stack">
+        <span class="tag">Leaflet</span>
+        <span class="tag">Perplexity Search</span>
+        <span class="tag">data.lacity.org</span>
+        <span class="tag">LA GeoHub</span>
+        <span class="tag">Vercel</span>
+      </div>
+    </div>
+
+    <div class="case-footnote">Donor data is only as complete as what's filed with the Ethics Commission. District boundaries follow the City of LA's 2021 adopted council map.</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently, open to AI Solutions Engineer roles · New York, ET</div>
+</footer>
+
+<script>
+document.getElementById('nav').classList.add('scrolled');
+</script>
+</body>
+</html>
