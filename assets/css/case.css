@@ -44,6 +44,9 @@
 .spec-item dd{font-size:14px;color:var(--ink)}
 @media(max-width:640px){.spec-table{grid-template-columns:1fr}}
 
+/* External links in the header — live site, repo */
+.case-links{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:24px}
+
 /* Long-form body */
 .case-body{font-family:var(--f-serif);font-size:18.5px;line-height:1.6;color:var(--ink)}
 .case-body h2{
