@@ -28,12 +28,12 @@
     <header class="case-header">
       <div class="case-eyebrow">Personal project</div>
       <h1 class="case-h1">Sound Source Localization</h1>
-      <p class="case-oneline">I went back to my own graduate code and found it never actually computed an answer</p>
+      <p class="case-oneline">Estimating a sound source's 3-D position from a microphone array</p>
       <dl class="spec-table">
-        <div class="spec-item"><dt>Role</dt><dd>Original 2018 master's project at Johns Hopkins, audited and rebuilt solo in 2026</dd></div>
+        <div class="spec-item"><dt>Role</dt><dd>2018 master's project at Johns Hopkins, solved in 2026</dd></div>
         <div class="spec-item"><dt>Problem</dt><dd>Estimate a sound source's 3-D position from a microphone array in a reverberant room</dd></div>
         <div class="spec-item"><dt>Approach</dt><dd>Per-cluster direction-of-arrival, then least-squares ray triangulation</dd></div>
-        <div class="spec-item"><dt>Status</dt><dd>Open source, validated in simulation, live demo hosted</dd></div>
+        <div class="spec-item"><dt>Status</dt><dd>Open source, 77 tests, live demo hosted</dd></div>
       </dl>
       <div class="case-links">
         <a href="https://sound-source-localization.onrender.com/" target="_blank" rel="noopener noreferrer" class="link-arrow">View demo →</a>
@@ -41,51 +41,29 @@
     </header>
 
     <div class="case-body">
-      <p>My master's project at Johns Hopkins in 2018 tried to locate heart sounds recorded by a microphone array, the front half of an automated murmur detector. I went back to it this year to modernize it and put a demo online. It didn't run.</p>
+      <h2 id="before">Before</h2>
+      <p>My master's project at Johns Hopkins located heart sounds recorded by a microphone array, the front half of an automated murmur detector. I went back to it this year to put a demo online and found it had never solved the problem. It swept a fixed radius and emitted around 500 candidate points. Nothing in the pipeline turned them into a position, and in 2018 I didn't recognize why: this is a geometry problem, not a search problem.</p>
+      <p>Four more errors underneath were corrupting results without ever raising one, the worst being a hardcoded speed of sound at a tenth of its real value. None of them crashed anything, which is why they survived eight years.</p>
 
-      <h2 id="what-i-found">What I found</h2>
-      <p>The scripts imported modules against a package structure that no longer existed, with no dependency list and no way to install it. Once I fixed the packaging and got it running, I looked at what it was actually producing.</p>
-      <p>It had never computed a source location. What I'd called an estimate in 2018 was around 500 raw candidate points scattered along a fixed radius sweep, no triangulation step and no clustering step. The method that was supposed to reduce that cloud to a single point built a search structure out of it and then returned nothing. The pipeline emitted an unreduced point cloud and stopped.</p>
-      <p>Underneath that were four more errors, each quietly corrupting the numbers rather than crashing:</p>
-      <ul>
-        <li>The speed of sound was hardcoded to 30 m/s, roughly a tenth of its true value in air. Every direction estimate downstream was scaled against a wrong constant.</li>
-        <li>The angle calculation used a function that can't represent any angle past 90°, so a source below the plane of the array was mathematically unrepresentable. The same function averaged position estimates by dividing by the number of spatial dimensions instead of the number of microphones.</li>
-        <li>Microphone placement dropped the vertical coordinate entirely and never checked generated positions against the room's bounds, so microphones could end up simulated outside the room with no error raised.</li>
-        <li>The reverberation parameters, the entire reason the project targeted a "reverberant room," were accepted as inputs and never passed into the room simulator. The reverberant environment in the project's own title was never actually simulated.</li>
-      </ul>
-
-      <h2 id="what-i-rebuilt">What I rebuilt</h2>
-      <p>The missing piece was a real estimator. Each microphone cluster gives you a bearing, a direction, which is a ray with unknown distance, not a position. Turning several bearings into one position is a geometry problem: find the point that best explains every ray at once. That has a closed-form solution, a linear system solved directly, no sampling grid and no guess-and-check.</p>
-      <p>Real bearings are noisy, so the rebuilt solver ships three ways to combine them: ordinary least squares, iteratively reweighted least squares with a Huber loss as the default (it down-weights rays whose error is unusually large, typically a reflection mistaken for the direct path), and RANSAC for when a large fraction of the rays are corrupted.</p>
+      <h2 id="what-i-built">What I built</h2>
+      <p>The missing piece was triangulation. Each microphone cluster gives a bearing, a ray with unknown distance. Finding the point that best explains every ray at once is a linear system with a closed-form solution, solved directly, no sampling grid. Real bearings are noisy, so three combiners ship: ordinary least squares, iteratively reweighted least squares with a Huber loss as the default, and RANSAC when a large fraction of rays are corrupted.</p>
 
       <h2 id="design-decision">The key design decision</h2>
-      <p>Two constraints came from the array geometry, and both showed up first as wrong numbers.</p>
-      <ul>
-        <li><strong>Flat clusters can't tell up from down.</strong> A microphone cluster where every mic sits at the same height can't distinguish a source above it from its mirror image below — the inter-microphone delays are identical either way. A flat six-mic array in testing reported 111.08° of colatitude for a true angle of 68.86°; 180° minus 68.86° is 111.14°. It wasn't noisy, it was confidently reporting the reflection. The fix was to give every cluster its own vertical extent, a compact four-microphone tetrahedron instead of a flat polygon, so a single cluster can resolve elevation on its own.</li>
-        <li><strong>Microphones meters apart can't be pooled into one direction estimate.</strong> The direction-finding algorithm needs microphone spacing well under half a wavelength, a few centimeters at the frequencies involved. Mixing microphones from clusters meters apart produces phase aliasing and effectively random angles; measured directly, it collapsed the estimate to roughly the average of the cluster locations, about 1.27 m of error. The fix was to compute direction using only each cluster's own tightly-spaced microphones, one ray per cluster, and let triangulation combine the rays. Triangulation only cares about ray geometry, not how far apart the rays start.</li>
-      </ul>
+      <p>Array geometry imposed two constraints, both of which surfaced as wrong numbers before I understood them.</p>
+      <p>A cluster where every microphone sits at the same height cannot tell a source above it from its mirror image below. The delays are identical. A flat six-mic array reported 111.08° of colatitude for a true 68.86°, confidently returning the reflection. Every cluster now has vertical extent, a four-microphone tetrahedron, so one cluster resolves elevation alone.</p>
+      <p>Direction-finding also needs microphone spacing under half a wavelength, centimeters at these frequencies. Pooling microphones from clusters meters apart aliases the phase and collapses the estimate toward the average of the cluster positions, 1.27 m of error when I measured it. Direction now uses only each cluster's own microphones, one ray per cluster. Triangulation cares about ray geometry, not how far apart the rays start.</p>
 
-      <h2 id="accuracy">Accuracy, including where it fails</h2>
-      <p>I set out to hit sub-centimeter accuracy. The triangulation math gets there. The full acoustic pipeline doesn't, once there's any realistic reverberation in the room. These are measured numbers, not targets:</p>
-      <ul>
-        <li>Geometric triangulation, exact bearings: ~10⁻¹³ m, machine precision.</li>
-        <li>Near-anechoic room, real audio and real direction-finding: mean 0.031 m, range 0.010–0.044 m.</li>
-        <li>Lightly furnished room, moderate reverberation: mean 0.121 m, range 0.016–0.183 m.</li>
-        <li>Heavily reverberant room, strong reverberation: mean 1.033 m, range 0.332–1.773 m.</li>
-      </ul>
-      <p>The honest reading: the estimator itself is exact, verified at machine precision by 13 unit tests. The real-audio pipeline reaches single-digit centimeters in the best case and degrades by a factor of thirty in a reverberant room. That's a physical limit of direction-finding from a few-centimeter aperture, not a remaining bug — reflections corrupt the direct-path timing the whole method depends on. Closing that gap in a real reverberant room would take a different approach entirely: a larger array aperture, synchronized time-of-flight hardware, or a direction-finding model trained to tolerate reverberation. That was out of scope, and saying so is more useful than picking a friendlier test room.</p>
-      <p>I also checked whether the degradation was an artifact of the synthetic signal I'd been testing with, by rerunning the same algorithms against real speech and environmental sound with known simulated ground truth: 135 runs across 3 datasets, 3 reverberation levels, 5 algorithms, and 3 source positions. It wasn't an artifact — reverberation degraded accuracy just as badly on real audio, on every dataset.</p>
+      <h2 id="results">Results</h2>
+      <p>Given exact bearings, triangulation is exact: ~10⁻¹³ m, machine precision, verified by 13 unit tests. On real audio it holds up in a quiet room and degrades with reverberation.</p>
+      <p>Near-anechoic: mean 0.031 m. Moderately furnished room: mean 0.121 m. Heavily reverberant: mean 1.033 m.</p>
+      <p>I targeted sub-centimeter and missed by a factor of thirty in the reverberant case. That's the physical limit of direction-finding across a few centimeters of aperture, not a remaining bug. Reflections corrupt the direct-path timing the method depends on. Closing it needs a larger aperture, synchronized time-of-flight hardware, or a direction model trained on reverberation. I checked the degradation wasn't an artifact of my test signal by rerunning against real speech and environmental audio, 135 runs across 3 datasets and 3 reverberation levels. Same result.</p>
 
       <h2 id="limits">Known limits</h2>
-      <ul>
-        <li>Single source only. Multiple simultaneous sources would need rays grouped by source before triangulating each group; not implemented.</li>
-        <li>The default cluster aperture is a tuned tradeoff at one frequency band and mic count, not a general guarantee.</li>
-        <li>Everything above is one room size, one array layout, and simulated audio only — nothing has been validated against real microphone hardware.</li>
-        <li>The default analysis frequency range is still tuned to the original heart-sound use case and has to be overridden for anything else.</li>
-      </ul>
+      <p>One source at a time. Multiple sources need rays grouped before triangulating each group. All numbers come from one room geometry, one array layout, and simulated audio, with no validation against real microphone hardware. The default frequency range is still tuned to heart sounds.</p>
 
       <h2 id="status">Where it stands</h2>
-      <p>The repo runs end-to-end with 77 passing tests and reports its own accuracy, including the target it misses. A Streamlit demo takes a preset or an uploaded multi-channel recording and shows the estimated position against the true one in 3-D. It's live online and also runs locally through Docker. The code is open for anyone who wants to point it at a different room, a different array, or real hardware, and tell me where the numbers fall apart.</p>
+      <p>The repo runs end-to-end and reports its own accuracy, including the target it misses. A Streamlit demo takes a preset or an uploaded multi-channel recording and plots the estimate against the true position in 3-D. It's live online, and also runs locally through Docker. Open for anyone who wants to point it at a different room, a different array, or real hardware.</p>
+      <p>What I actually took from this: the 2018 version failed because I reached for a search when the problem wanted geometry. Describing the problem correctly did more than any amount of tuning would have.</p>
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">6</span>
@@ -117,7 +95,7 @@
       </div>
     </div>
 
-    <div class="case-footnote">Accuracy figures come from simulated audio in one room geometry with a 5-position sample. No real-hardware validation. The original 2018 project targeted heart sounds; this version is general-purpose and makes no clinical claim.</div>
+    <div class="case-footnote">Accuracy figures come from simulated audio in one room geometry with a 5-position sample. No real-hardware validation. The original project targeted heart sounds; this version is general-purpose and makes no clinical claim.</div>
   </div>
 </section>
 </main>
