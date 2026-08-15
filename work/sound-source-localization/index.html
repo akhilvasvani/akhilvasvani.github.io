@@ -33,8 +33,11 @@
         <div class="spec-item"><dt>Role</dt><dd>Original 2018 master's project at Johns Hopkins, audited and rebuilt solo in 2026</dd></div>
         <div class="spec-item"><dt>Problem</dt><dd>Estimate a sound source's 3-D position from a microphone array in a reverberant room</dd></div>
         <div class="spec-item"><dt>Approach</dt><dd>Per-cluster direction-of-arrival, then least-squares ray triangulation</dd></div>
-        <div class="spec-item"><dt>Status</dt><dd>Open source, validated in simulation, demo runs locally</dd></div>
+        <div class="spec-item"><dt>Status</dt><dd>Open source, validated in simulation, live demo hosted</dd></div>
       </dl>
+      <div class="case-links">
+        <a href="https://sound-source-localization.onrender.com/" target="_blank" rel="noopener noreferrer" class="link-arrow">View demo →</a>
+      </div>
     </header>
 
     <div class="case-body">
@@ -55,8 +58,8 @@
       <p>The missing piece was a real estimator. Each microphone cluster gives you a bearing, a direction, which is a ray with unknown distance, not a position. Turning several bearings into one position is a geometry problem: find the point that best explains every ray at once. That has a closed-form solution, a linear system solved directly, no sampling grid and no guess-and-check.</p>
       <p>Real bearings are noisy, so the rebuilt solver ships three ways to combine them: ordinary least squares, iteratively reweighted least squares with a Huber loss as the default (it down-weights rays whose error is unusually large, typically a reflection mistaken for the direct path), and RANSAC for when a large fraction of the rays are corrupted.</p>
 
-      <h2 id="geometry">Two things the array geometry forced</h2>
-      <p>Neither of these came from a textbook. Both showed up as wrong numbers first.</p>
+      <h2 id="design-decision">The key design decision</h2>
+      <p>Two constraints came from the array geometry, and both showed up first as wrong numbers.</p>
       <ul>
         <li><strong>Flat clusters can't tell up from down.</strong> A microphone cluster where every mic sits at the same height can't distinguish a source above it from its mirror image below — the inter-microphone delays are identical either way. A flat six-mic array in testing reported 111.08° of colatitude for a true angle of 68.86°; 180° minus 68.86° is 111.14°. It wasn't noisy, it was confidently reporting the reflection. The fix was to give every cluster its own vertical extent, a compact four-microphone tetrahedron instead of a flat polygon, so a single cluster can resolve elevation on its own.</li>
         <li><strong>Microphones meters apart can't be pooled into one direction estimate.</strong> The direction-finding algorithm needs microphone spacing well under half a wavelength, a few centimeters at the frequencies involved. Mixing microphones from clusters meters apart produces phase aliasing and effectively random angles; measured directly, it collapsed the estimate to roughly the average of the cluster locations, about 1.27 m of error. The fix was to compute direction using only each cluster's own tightly-spaced microphones, one ray per cluster, and let triangulation combine the rays. Triangulation only cares about ray geometry, not how far apart the rays start.</li>
@@ -65,7 +68,7 @@
       <h2 id="accuracy">Accuracy, including where it fails</h2>
       <p>I set out to hit sub-centimeter accuracy. The triangulation math gets there. The full acoustic pipeline doesn't, once there's any realistic reverberation in the room. These are measured numbers, not targets:</p>
       <ul>
-        <li>Geometric triangulation, exact bearings: ~10⁻¹⁵ m, machine precision.</li>
+        <li>Geometric triangulation, exact bearings: ~10⁻¹³ m, machine precision.</li>
         <li>Near-anechoic room, real audio and real direction-finding: mean 0.031 m, range 0.010–0.044 m.</li>
         <li>Lightly furnished room, moderate reverberation: mean 0.121 m, range 0.016–0.183 m.</li>
         <li>Heavily reverberant room, strong reverberation: mean 1.033 m, range 0.332–1.773 m.</li>
@@ -82,14 +85,14 @@
       </ul>
 
       <h2 id="status">Where it stands</h2>
-      <p>The repo runs end-to-end with 77 passing tests and reports its own accuracy, including the target it misses. A Streamlit demo takes a preset or an uploaded multi-channel recording and shows the estimated position against the true one in 3-D; it runs locally through Docker and isn't hosted yet. The code is open for anyone who wants to point it at a different room, a different array, or real hardware, and tell me where the numbers fall apart.</p>
+      <p>The repo runs end-to-end with 77 passing tests and reports its own accuracy, including the target it misses. A Streamlit demo takes a preset or an uploaded multi-channel recording and shows the estimated position against the true one in 3-D. It's live online and also runs locally through Docker. The code is open for anyone who wants to point it at a different room, a different array, or real hardware, and tell me where the numbers fall apart.</p>
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">6</span>
           <span class="case-result-l">silent bugs found in my own graduate code</span>
         </div>
         <div class="case-result-chip">
-          <span class="case-result-n">10⁻¹⁵ m</span>
+          <span class="case-result-n">10⁻¹³ m</span>
           <span class="case-result-l">triangulation error given exact bearings</span>
         </div>
         <div class="case-result-chip">
