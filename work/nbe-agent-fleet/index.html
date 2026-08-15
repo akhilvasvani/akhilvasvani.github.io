@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>NBE Agent Fleet — Akhil Vasvani</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="NBE Agent Fleet: an automation layer for campaign operations at WebMD / Medscape. Nine automations shipped over about a year, reclaiming 3,074 hours annually.">
+<meta name="description" content="NBE Agent Fleet: nine agents automating campaign operations at WebMD / Medscape, 3,074 hours reclaimed annually. My first agent system, including what broke in production and what I would build differently.">
 <link rel="canonical" href="https://akhilvasvani.com/work/nbe-agent-fleet">
 <link rel="stylesheet" href="../../assets/css/site.css">
 <link rel="stylesheet" href="../../assets/css/case.css">
@@ -38,7 +38,7 @@
     </header>
 
     <div class="case-body">
-      <p>I embedded with a small operations team running the manual side of digital engagement campaigns: processing instruction files, auditing delivery, tracking execution, and reprocessing broken jobs. The work depended heavily on tribal knowledge, so I spent months learning the workflows directly from the people doing them, then turned the highest-friction processes into reusable tools and agents.</p>
+      <p>I embedded with a small operations team running the manual side of digital engagement campaigns: processing instruction files, auditing delivery, tracking execution, and reprocessing broken jobs. The work depended heavily on tribal knowledge, so I spent months learning the workflows directly from the people doing them, then turned the highest-friction processes into reusable tools and agents. This was the first agent system I built, and most of what I now know about running agents against production systems I learned here.</p>
 
       <h2 id="shipped">What I shipped</h2>
       <p>Nine automations over about a year, including:</p>
@@ -70,6 +70,15 @@
         </div>
       </div>
       <p>More importantly, the systems were documented and handed off so they could be run without me, including during a staffing gap.</p>
+
+      <h2>What broke</h2>
+      <p>The model was rarely the problem. The first failure was mine: the agent pulled the wrong campaign data because I had specified the task badly. That was a prompt fix, done in an afternoon.</p>
+      <p>The failures that mattered were environmental. Google Ad Manager rate-limits requests, so a tool the agents depended on was not always available when they asked for it. Tools also timed out mid-workflow, which is worse than failing outright, because some steps had committed and some had not and nothing in the system knew which.</p>
+      <p>I handled both with monitoring rather than engineering. The agents surface an error when a run does not complete, and Jaidev, the analyst I trained on the system, re-runs it. That comes to a couple of re-runs a month across nine automations. For one person shipping nine automations in a year against a team that needed the hours back immediately, monitored recovery was the right call, and it kept a person watching a system nobody had run before.</p>
+
+      <h2>What I'd do differently</h2>
+      <p>Three things, all of which I would build now and did not know to build then. Batch and cache requests against the rate limit so the agents work within the quota instead of hitting it. Make each step idempotent, so a re-run cannot double-process a file that already went through. Checkpoint the workflow, so a timeout resumes from the last completed step instead of restarting.</p>
+      <p>None of these are model problems. They are the failure modes you only see once agents are running against production systems on a schedule, and they are what I look for first now.</p>
 
       <h2 id="stack">Stack</h2>
       <div class="case-stack">
