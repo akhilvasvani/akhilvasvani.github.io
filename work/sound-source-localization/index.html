@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sound Source Localization — Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Sound Source Localization: I went back to my 2018 Johns Hopkins master's project, found it had never computed a source position, and rebuilt the missing triangulation math.">
+<link rel="canonical" href="https://akhilvasvani.com/work/sound-source-localization">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/case.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<section class="case">
+  <div class="case-col">
+    <a href="/career#projects" class="case-back">← Back to projects</a>
+
+    <header class="case-header">
+      <div class="case-eyebrow">Personal project</div>
+      <h1 class="case-h1">Sound Source Localization</h1>
+      <p class="case-oneline">Estimating a sound source's 3-D position from a microphone array</p>
+      <dl class="spec-table">
+        <div class="spec-item"><dt>Role</dt><dd>2018 master's project at Johns Hopkins, solved in 2026</dd></div>
+        <div class="spec-item"><dt>Problem</dt><dd>Estimate a sound source's 3-D position from a microphone array in a reverberant room</dd></div>
+        <div class="spec-item"><dt>Approach</dt><dd>Per-cluster direction-of-arrival, then least-squares ray triangulation</dd></div>
+        <div class="spec-item"><dt>Status</dt><dd>Open source, 77 tests, live demo hosted</dd></div>
+      </dl>
+      <div class="case-links">
+        <a href="https://sound-source-localization.onrender.com/" target="_blank" rel="noopener noreferrer" class="link-arrow">View demo →</a>
+      </div>
+    </header>
+
+    <div class="case-body">
+      <h2 id="before">Before</h2>
+      <p>My master's project at Johns Hopkins located heart sounds recorded by a microphone array, the front half of an automated murmur detector. I went back to it this year to put a demo online and found it had never solved the problem. It swept a fixed radius and emitted around 500 candidate points. Nothing in the pipeline turned them into a position, and in 2018 I didn't recognize why: this is a geometry problem, not a search problem.</p>
+      <p>Four more errors underneath were corrupting results without ever raising one, the worst being a hardcoded speed of sound at a tenth of its real value. None of them crashed anything, which is why they survived eight years.</p>
+
+      <h2 id="what-i-built">What I built</h2>
+      <p>The missing piece was triangulation. Each microphone cluster gives a bearing, a ray with unknown distance. Finding the point that best explains every ray at once is a linear system with a closed-form solution, solved directly, no sampling grid. Real bearings are noisy, so three combiners ship: ordinary least squares, iteratively reweighted least squares with a Huber loss as the default, and RANSAC when a large fraction of rays are corrupted.</p>
+
+      <h2 id="design-decision">The key design decision</h2>
+      <p>Array geometry imposed two constraints, both of which surfaced as wrong numbers before I understood them.</p>
+      <p>A cluster where every microphone sits at the same height cannot tell a source above it from its mirror image below. The delays are identical. A flat six-mic array reported 111.08° of colatitude for a true 68.86°, confidently returning the reflection. Every cluster now has vertical extent, a four-microphone tetrahedron, so one cluster resolves elevation alone.</p>
+      <p>Direction-finding also needs microphone spacing under half a wavelength, centimeters at these frequencies. Pooling microphones from clusters meters apart aliases the phase and collapses the estimate toward the average of the cluster positions, 1.27 m of error when I measured it. Direction now uses only each cluster's own microphones, one ray per cluster. Triangulation cares about ray geometry, not how far apart the rays start.</p>
+
+      <h2 id="results">Results</h2>
+      <p>Given exact bearings, triangulation is exact: ~10⁻¹³ m, machine precision, verified by 13 unit tests. On real audio it holds up in a quiet room and degrades with reverberation.</p>
+      <p>Near-anechoic: mean 0.031 m. Moderately furnished room: mean 0.121 m. Heavily reverberant: mean 1.033 m.</p>
+      <p>I targeted sub-centimeter and missed by a factor of thirty in the reverberant case. That's the physical limit of direction-finding across a few centimeters of aperture, not a remaining bug. Reflections corrupt the direct-path timing the method depends on. Closing it needs a larger aperture, synchronized time-of-flight hardware, or a direction model trained on reverberation. I checked the degradation wasn't an artifact of my test signal by rerunning against real speech and environmental audio, 135 runs across 3 datasets and 3 reverberation levels. Same result.</p>
+
+      <h2 id="limits">Known limits</h2>
+      <p>One source at a time. Multiple sources need rays grouped before triangulating each group. All numbers come from one room geometry, one array layout, and simulated audio, with no validation against real microphone hardware. The default frequency range is still tuned to heart sounds.</p>
+
+      <h2 id="status">Where it stands</h2>
+      <p>The repo runs end-to-end and reports its own accuracy, including the target it misses. A Streamlit demo takes a preset or an uploaded multi-channel recording and plots the estimate against the true position in 3-D. It's live online, and also runs locally through Docker. Open for anyone who wants to point it at a different room, a different array, or real hardware.</p>
+      <p>What I actually took from this: the 2018 version failed because I reached for a search when the problem wanted geometry. Describing the problem correctly did more than any amount of tuning would have.</p>
+      <div class="case-results">
+        <div class="case-result-chip">
+          <span class="case-result-n">6</span>
+          <span class="case-result-l">silent bugs found in my own graduate code</span>
+        </div>
+        <div class="case-result-chip">
+          <span class="case-result-n">10⁻¹³ m</span>
+          <span class="case-result-l">triangulation error given exact bearings</span>
+        </div>
+        <div class="case-result-chip">
+          <span class="case-result-n">1.03 m</span>
+          <span class="case-result-l">mean error in a heavily reverberant room, target was under 1 cm</span>
+        </div>
+      </div>
+
+      <h2 id="stack">Stack</h2>
+      <div class="case-stack">
+        <span class="tag">pyroomacoustics</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">SciPy</span>
+        <span class="tag">SRP-PHAT</span>
+        <span class="tag">MUSIC</span>
+        <span class="tag">TOPS</span>
+        <span class="tag">Huber IRLS</span>
+        <span class="tag">RANSAC</span>
+        <span class="tag">pytest</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">Docker</span>
+      </div>
+    </div>
+
+    <div class="case-footnote">Accuracy figures come from simulated audio in one room geometry with a 5-position sample. No real-hardware validation. The original project targeted heart sounds; this version is general-purpose and makes no clinical claim.</div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently, open to AI Solutions Engineer roles · New York, ET</div>
+</footer>
+
+<script>
+document.getElementById('nav').classList.add('scrolled');
+</script>
+</body>
+</html>
