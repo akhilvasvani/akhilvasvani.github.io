@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Seven AI workflows, 11,471 hours — Akhil Vasvani</title>
+<title>Seven AI workflows, 10,523 hours — Akhil Vasvani</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Perplexity Enterprise Pro rolled out to 100+ users across seven business units at WebMD / Medscape, plus seven AI workflows returning 11,471 hours annually.">
+<meta name="description" content="Perplexity Enterprise Pro rolled out to 100+ users across seven business units at WebMD / Medscape, plus seven AI workflows returning 10,523 hours annually.">
 <link rel="canonical" href="https://akhilvasvani.com/work/perplexity">
 <link rel="stylesheet" href="../../assets/css/site.css">
 <link rel="stylesheet" href="../../assets/css/case.css">
@@ -27,18 +27,18 @@
 
     <header class="case-header">
       <div class="case-eyebrow">Forward Deployed Engineer</div>
-      <h1 class="case-h1">Seven AI workflows, 11,471 hours, and the one that changed an acquisition</h1>
-      <p class="case-oneline">Perplexity Enterprise Pro, rolled out to 100+ active users across seven business units</p>
+      <h1 class="case-h1">The tool was broken. The question was wrong.</h1>
+      <p class="case-oneline">Seven AI workflows built for Perplexity Enterprise Pro at WebMD, rolled out to 100+ users across seven business units</p>
       <dl class="spec-table">
         <div class="spec-item"><dt>Role</dt><dd>Forward Deployed Engineer</dd></div>
         <div class="spec-item"><dt>Timeline</dt><dd>2025–2026 · Delivered</dd></div>
         <div class="spec-item"><dt>Users</dt><dd>100+ active users, seven business units</dd></div>
-        <div class="spec-item"><dt>Outcome</dt><dd>11,471 hours reclaimed annually</dd></div>
+        <div class="spec-item"><dt>Outcome</dt><dd>10,523 hours reclaimed annually</dd></div>
       </dl>
     </header>
 
     <div class="case-body">
-      <p><strong>Seven workflows shipped. 11,471 hours reclaimed annually.</strong></p>
+      <p><strong>Seven workflows shipped. 10,523 hours reclaimed annually.</strong></p>
 
       <h2 id="rollout">The rollout: 100+ users, no mandate</h2>
       <p>I launched Perplexity Enterprise Pro at WebMD! Senior managers across health, legal, automotive, and contractors came in first and their teams followed, reaching 100+ active users across seven business units — Legal, Editorial, Product, Program Management, Medscape Education, Compliance, and Data Science. I validated HIPAA and SOC2 compliance with the VP of Engineering before a single license went out.</p>
@@ -46,13 +46,9 @@
       <p>So I stopped presenting the platform in the abstract and started asking one question: what's slowing you down this week? Repeated across dozens of sessions, that question produced the workflows below.</p>
 
       <h2 id="sso">SSO Tear-Down: the autonomous M&amp;A due-diligence agent</h2>
-      <p>The strongest engineering piece of the rollout. The product management team was evaluating acquisition targets' SSO architecture, data migration readiness, compliance posture, and transactional email systems. Historically that was six weeks to six months of manual research per target.</p>
-      <p>I built an autonomous agent pipeline on seven persistent skill files inside a Perplexity Space running on computer use. It scrapes public endpoints, enumerates subdomains, inspects server configurations, and scores 13 technical dimensions against a set of auto-fail triggers. A single run takes about 3 hours. In a pilot audit of an active acquisition target, it surfaced critical findings that changed the deal's timing and structure. Manual diligence might have missed them entirely, and honestly the time savings mattered less than what the agent caught.</p>
+      <p>A prototype, and the most technically involved thing I built. The product management team was evaluating acquisition targets' SSO architecture, data migration readiness, compliance posture, and transactional email systems. Historically that was six weeks to six months of manual research per target.</p>
+      <p>I built an autonomous agent pipeline on seven persistent skill files inside a Perplexity Space running on computer use. It scrapes public endpoints, enumerates subdomains, inspects server configurations, and scores 13 technical dimensions against a set of auto-fail triggers. A single run takes about 3 hours. I demoed it once, against an active acquisition target. The product manager who owned the evaluation judged the findings material. It hasn't been run since, so treat this as a prototype that worked rather than a workflow in use.</p>
       <div class="case-results">
-        <div class="case-result-chip">
-          <span class="case-result-n">948 hrs/yr</span>
-          <span class="case-result-l">reclaimed annually, a 99% reduction</span>
-        </div>
         <div class="case-result-chip">
           <span class="case-result-n">6 wks → 3 hrs</span>
           <span class="case-result-l">per due-diligence run, before vs. after</span>
@@ -104,7 +100,7 @@
 
       <h2 id="rural-health">Rural Health: fifty states, tracked by hand</h2>
       <p>A task force at WebMD Ignite was prioritizing all 50 U.S. states for a $50 billion federal rural health transformation program. That meant tracking roughly $10 billion in annual funding, hunting state-level RFPs scattered across inconsistent government websites, scoring each for relevance, and keying the results into Airtable by hand. One stakeholder was tracking state activity with tally marks on paper. Missing a single RFP had direct financial consequences.</p>
-      <p>Nobody assigned me the project. I volunteered and delivered an MVP in three days. It featured a pipeline calling the Perplexity Search API once per state, filtered to .gov domains, and batched into ten calls that returned clean JSON with the state, RFP title, source URL, publication date, snippet, and a confidence flag. I piloted Perplexity's computer use feature on ten state sites to navigate to the right page and pull the RFP PDF without manual browsing.</p>
+      <p>Nobody assigned me the project. I volunteered and delivered an MVP in three days. The pipeline calls the Perplexity Search API once per state, filtered to .gov domains, batched into ten calls to stay inside rate limits. Each returns structured JSON: state, RFP title, source URL, publication date, snippet, and a confidence flag for downstream triage. Results key straight into the Airtable the task force was maintaining by hand. For the sites where search alone couldn't reach the document, I piloted Perplexity's computer use feature across ten state portals to navigate to the RFP page and pull the PDF without manual browsing.</p>
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">2,076 hrs/yr</span>
@@ -127,7 +123,7 @@
       </div>
 
       <h2 id="health-accreditation">Health Accreditation Space</h2>
-      <p>A stakeholder was manually reading digital health articles against NCQA compliance guidelines, documenting which sections passed and which failed. I built a Perplexity Space around her evaluation criteria. It took five prompt iterations before the output was usable, and each pass surfaced something about her evaluation criteria she hadn't thought to say out loud. By the fifth version the Space encoded her reading of the NCQA guidelines, not just the guidelines themselves.</p>
+      <p>A stakeholder was manually reading digital health articles against NCQA compliance guidelines, documenting which sections passed and which failed. I built a Perplexity Space around her evaluation criteria. By the fifth version the Space encoded her reading of the NCQA guidelines, not just the guidelines themselves.</p>
       <div class="case-results">
         <div class="case-result-chip">
           <span class="case-result-n">1,976 hrs/yr</span>
@@ -142,12 +138,12 @@
       <h2 id="results">Results</h2>
       <div class="case-results">
         <div class="case-result-chip">
-          <span class="case-result-n">11,471 hrs</span>
+          <span class="case-result-n">10,523 hrs</span>
           <span class="case-result-l">reclaimed annually</span>
         </div>
         <div class="case-result-chip">
           <span class="case-result-n">7</span>
-          <span class="case-result-l">workflows shipped</span>
+          <span class="case-result-l">6 in use, 1 prototype</span>
         </div>
         <div class="case-result-chip">
           <span class="case-result-n">100+</span>
@@ -158,6 +154,11 @@
           <span class="case-result-l">business units</span>
         </div>
       </div>
+
+      <h2 id="what-was-hard">What was hard</h2>
+      <p>Nothing fell over in production. The difficulty was upstream, in getting the agents to behave.</p>
+      <p>Source restriction was the first problem. A research engine wants to search everything, and most of these workflows are only valid against a narrow set of accredited sources — official government domains for legal research, uploaded internal documents for fact-checking. Hardcoding source isolation into each Space, and disabling web search outright for the fact-check tool, is what made the output usable.</p>
+      <p>Matching the golden sets was the second. Getting an agent to produce output that consistently matched known-good examples took repeated iteration rather than one good prompt. The Health Accreditation Space took five passes, and each pass surfaced evaluation criteria the stakeholder hadn't thought to say out loud. By the fifth version the Space encoded her reading of the NCQA guidelines rather than the guidelines themselves.</p>
 
       <h2 id="stack">Stack</h2>
       <div class="case-stack">
