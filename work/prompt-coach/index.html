@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Prompt Coach — Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A Gemini Gem that turns a plain request into three rewritten prompts plus a recommended model tier and mode. Shared company-wide, with 20 to 200 people using it on a given day.">
+<link rel="canonical" href="https://akhilvasvani.com/work/prompt-coach">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/case.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<section class="case">
+  <div class="case-col">
+    <a href="/career#projects" class="case-back">← Back to projects</a>
+
+    <header class="case-header">
+      <div class="case-eyebrow">Forward Deployed Engineer</div>
+      <h1 class="case-h1">Prompt Coach</h1>
+      <p class="case-oneline">A Gemini Gem that answers the question training left open: what do I actually type, and where do I run it</p>
+      <dl class="spec-table">
+        <div class="spec-item"><dt>Role</dt><dd>Forward Deployed Engineer — Built solo, shared company-wide</dd></div>
+        <div class="spec-item"><dt>Timeline</dt><dd>2026, in use</dd></div>
+        <div class="spec-item"><dt>Problem</dt><dd>Training gets people to the input box. It does not help them at the input box.</dd></div>
+        <div class="spec-item"><dt>Outcome</dt><dd>Shared with 5,000 people. Between 20 and 200 use it on a given day.</dd></div>
+      </dl>
+    </header>
+
+    <div class="case-body">
+      <h2>Before</h2>
+      <p>Every meeting had someone saying to use AI. Almost nobody knew we already had direct access to Gemini. I ran an AI literacy camp to close that gap, and by the end a different problem had surfaced.</p>
+      <p>In one session someone told me the training was useful but she still didn't know which tool to pick or how to write a prompt that returned something worth reading. She was not confused about whether to use AI. She was stuck at the moment of typing the first line.</p>
+      <p>That is a different failure than lack of access, and more training does not fix it. The decision she was stuck on was not covered by any session because it is not a knowledge gap. Gemini's web app is three coupled choices made before you get an answer: a model tier, Flash, Thinking, or Pro, a mode, Deep Research, Search, Canvas, or plain chat, and the shape of the prompt itself. Those interact. A factual lookup sent through Deep Research burns several minutes and returns a report nobody reads. A multi-source synthesis on Flash returns something confident and thin. The prompt that works in Canvas is structured differently from the one that works in Search.</p>
+      <p>The interface presents tier and mode as a dropdown, which implies they are preferences. They are not preferences. They determine the output.</p>
+
+      <h2>What I did instead</h2>
+      <p>I stopped adding sessions and built the decision into a Gem.</p>
+      <p>Prompt Coach takes a plain request and returns three things: three rewritten versions of the prompt, a recommended model tier, and a recommended mode. The user reads them and picks.</p>
+      <p>The routing logic lives in a skills file attached to the Gem, which spells out the current Gemini model lineup and what each tier and mode is actually good for. I compiled that reference by running Perplexity's Deep Research against Gemini's published capability documentation, then reconciled it against my own usage, because published capability descriptions and observed behavior are not always the same thing.</p>
+
+      <h2>The key design decision</h2>
+      <p>Three rewrites, not one.</p>
+      <p>One rewrite makes the Gem an oracle and the user a spectator. The first time an oracle is wrong, the user stops trusting it and goes back to typing whatever came to mind, which is the state I was trying to get them out of. Three options force a comparison. The user reads them, notices why the second is more specific than the first, and chooses. The comparison is the teaching mechanism. The output is a prompt, but the thing being transferred is the judgment about what makes one good.</p>
+      <p>The routing recommendation works the same way. It is a recommendation, visible and overridable, not a silent redirect. A user who disagrees can ignore it, and disagreeing requires forming an opinion about tier and mode, which is the skill.</p>
+      <p>The second decision is that the environment knowledge sits in a replaceable file rather than in the Gem's instructions. The model lineup changes every few months. Separating the part that goes stale from the part that does not means updating it is a file swap.</p>
+
+      <h2>Known limits</h2>
+      <p>The distribution number and the usage number are far apart. It has been shared with 5,000 people and somewhere between 20 and 200 use it on a given day. That range is wide enough that I do not have a real picture of the usage pattern, and the low end suggests most people who have access have not tried it or tried it once. I do not know which, because I shipped without instrumentation.</p>
+      <p>That is the gap I would close first. I can see active users and nothing else. I cannot tell whether routing recommendations get followed or overridden, and I cannot tell whether the three rewrites spread or converge. The second question is the one that matters, because if users almost always take the first option, the other two are decoration and the design premise is wrong.</p>
+      <p>The skills file has no staleness check. It encodes a model lineup that changes, and nothing tells me it has drifted except a recommendation that looks off. A version check against the current model list would catch that.</p>
+
+      <h2>Stack</h2>
+      <div class="case-stack">
+        <span class="tag">Gemini Web App (Flash / Thinking / Pro)</span>
+        <span class="tag">Gemini Gems</span>
+        <span class="tag">Skills</span>
+        <span class="tag">Perplexity Deep Research</span>
+        <span class="tag">Google Workspace Enterprise</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently, open to Forward Deployed Engineer roles · New York, ET</div>
+</footer>
+
+<script>
+document.getElementById('nav').classList.add('scrolled');
+</script>
+</body>
+</html>
