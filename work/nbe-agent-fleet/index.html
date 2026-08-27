@@ -31,7 +31,7 @@
       <p class="case-oneline">An automation layer for campaign operations at WebMD / Medscape</p>
       <dl class="spec-table">
         <div class="spec-item"><dt>Role</dt><dd>Forward Deployed Engineer — embedded with the operations team</dd></div>
-        <div class="spec-item"><dt>Timeline</dt><dd>2024–2025 · Delivered</dd></div>
+        <div class="spec-item"><dt>Timeline</dt><dd>2025–2026 · In use</dd></div>
         <div class="spec-item"><dt>Scope</dt><dd>9 automations over about a year</dd></div>
         <div class="spec-item"><dt>Outcome</dt><dd>3,074 hours reclaimed annually</dd></div>
       </dl>
@@ -54,6 +54,9 @@
         <li>A daily monitoring dashboard that gave the team a single operational view across incoming files, queue position, errors, and escalation triggers.</li>
       </ul>
 
+      <h2>The connectors</h2>
+      <p>Seven of the nine ran in the Gemini web app as Gems, with no self-hosted infrastructure. To reach systems Gemini couldn't see, I wrote MCP servers for Google Ad Manager, Jira, and Tableau. Each exposed the read and write operations a specific workflow needed rather than wrapping the full API. Auth was API-key based, running inside the corporate network over VPN, with nothing publicly reachable. That was the right scope for internal pilots and the wrong one for scale, since the keys were mine, so every user's access inherited my permissions instead of their own. A service account with its own scoped role is what I'd build now. The org later restricted custom connectors org-wide and the servers were retired.</p>
+
       <h2 id="results">Results</h2>
       <div class="case-results">
         <div class="case-result-chip">
@@ -70,6 +73,11 @@
         </div>
       </div>
       <p>More importantly, the systems were documented and handed off so they could be run without me, including during a staffing gap.</p>
+
+      <div class="case-footnote">Hours measured directly against the manual process, not estimated.</div>
+
+      <h2>How I checked correctness</h2>
+      <p>Each agent was validated against a hand-built golden set: fixed input cases with known-good outputs, reviewed manually with the workflow owner before hand-off. Scoring was our judgment of whether the output was right, not an automated harness.</p>
 
       <h2>What broke</h2>
       <p>The model was rarely the problem. The first failure was mine: the agent pulled the wrong campaign data because I had specified the task badly. That was a prompt fix, done in an afternoon.</p>
