@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dialect Layer. Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Translation skills that turn Medscape’s internal vocabulary into queries the company’s Salesforce and Workfront MCPs can answer. Shared across the organization.">
+<link rel="canonical" href="https://akhilvasvani.com/work/dialect-layer">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/case.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<section class="case">
+  <div class="case-col">
+    <a href="/career#projects" class="case-back">← Back to projects</a>
+
+    <header class="case-header">
+      <div class="case-eyebrow">Forward Deployed Engineer</div>
+      <h1 class="case-h1">Dialect Layer</h1>
+      <p class="case-oneline">The MCPs were connected. They didn’t understand how Medscape talks.</p>
+      <dl class="spec-table">
+        <div class="spec-item"><dt>Role</dt><dd>Built solo, with the Salesforce admin as the source of truth, shared organization-wide</dd></div>
+        <div class="spec-item"><dt>Timeline</dt><dd>2026. Salesforce in use, Workfront in pilot, BigQuery in progress</dd></div>
+        <div class="spec-item"><dt>Problem</dt><dd>Plain-language questions failed with an error that blamed the connection</dd></div>
+        <div class="spec-item"><dt>Outcome</dt><dd>Available to 1,000+ people, used by a few hundred in the past month by my estimate, extended by other teams</dd></div>
+      </dl>
+    </header>
+
+    <div class="case-body">
+      <h2>Before</h2>
+      <p>The company built custom MCPs for Salesforce and Workfront so people could ask Gemini and Claude for data in plain language. Plain questions failed. Someone would ask how many deals included an internal product code this quarter for a pharma client and get back: “Cannot find what you are looking for. Are you sure you are connected to Salesforce?”</p>
+      <p>The connection was fine. The error sent people looking in the wrong place, and other teams tried their own fixes before the problem was handed to me.</p>
+
+      <h2>What I did instead</h2>
+      <p>I started with the question itself. It makes sense to anyone at Medscape and almost none of it makes sense to Salesforce. The product code is our shorthand, not the name Salesforce stores. “The client” means something specific in our schema that the model can’t infer. So the model searched for terms that don’t exist and reported the miss as a connection problem.</p>
+      <p>To translate, I had to learn the target language first. I got on calls with our Salesforce admin and worked through how our terms map to Salesforce’s structure until I could read a question the way Salesforce would.</p>
+      <p>Then I built a skill for Gemini Enterprise that sits between the user and the MCP. It maps the words people actually use, from casual names for clients and deals to internal product shorthand, onto the Salesforce objects and fields those words refer to. It also gives ambiguous phrases such as “this year” a fixed meaning. The MCP itself is read only, so the skill cannot modify Salesforce records through it.</p>
+      <p>With the skill in place, the product question resolves cleanly: identify the client, pull its deals for the quarter, and count the ones that include that product.</p>
+
+      <h2>The key design decision</h2>
+      <p>The skill instructs the model that if a field doesn’t exist or returns nothing, it should name the field and stop. Don’t substitute a guess.</p>
+      <p>The original error was misleading. “Are you sure you are connected?” pointed people at the one part of the system that was working. A model that guesses would be worse, returning numbers that look right and aren’t.</p>
+      <p>Naming the missing field turns a dead end into a next step. The user can rephrase, or add the term to their own copy of the skill.</p>
+
+      <h2>Adoption</h2>
+      <p>The skill went out across the organization. More than 1,000 people have access, and by my estimate a few hundred used it in the past month. The better signal is what happened next: teams took the base skill and extended it with their own vocabulary. People treated it as a template, which is what a dialect problem needs, since every team has its own.</p>
+
+      <h2>The pattern repeats</h2>
+      <p>Workfront, Adobe’s project management system, has been in use at Medscape for over ten years, and we talk to it in our own way too. Same failure, different dialect. I ran 10 to 15 experiments to find where queries broke and turned the results into a Workfront translation skill, now in pilot.</p>
+      <p>BigQuery is next. Building the Sales Analyst Agent on a BigQuery MCP is what pointed us toward a translation skill there. It’s in progress.</p>
+
+      <h2>Known limits</h2>
+      <p>There’s no measured before-and-after success rate. The evidence is the diagnosis work and adoption, not a query accuracy metric. The usage figure is my own estimate, not telemetry. The stop rule is an instruction, not an enforced check, and I haven’t measured how consistently the model follows it. It also treats an empty result the same as a missing field, so a legitimate zero can come back as an error instead of an answer. The mapping is only as current as its last update, and dialects drift as teams rename things. Forked copies also drift from the base, so a fix to my version doesn’t reach the teams running their own.</p>
+
+      <h2>Stack</h2>
+      <div class="case-stack">
+        <span class="tag">Gemini Enterprise</span>
+        <span class="tag">Claude</span>
+        <span class="tag">Skills</span>
+        <span class="tag">Salesforce MCP</span>
+        <span class="tag">Workfront MCP</span>
+        <span class="tag">BigQuery MCP</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently, open to Forward Deployed Engineer roles · New York, ET</div>
+</footer>
+
+<script>
+document.getElementById('nav').classList.add('scrolled');
+</script>
+</body>
+</html>
