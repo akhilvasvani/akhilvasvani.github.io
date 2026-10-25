@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sales Analyst Agent. Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A Gemini Enterprise agent that pulls pharma client reporting data from BigQuery over MCP and formats it with per-client skills. In production for one client.">
+<link rel="canonical" href="https://akhilvasvani.com/work/sales-analyst-agent">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/case.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<section class="case">
+  <div class="case-col">
+    <a href="/career#projects" class="case-back">← Back to projects</a>
+
+    <header class="case-header">
+      <div class="case-eyebrow">Forward Deployed Engineer</div>
+      <h1 class="case-h1">Sales Analyst Agent</h1>
+      <p class="case-oneline">A reporting agent built for one pharma client, split so the analysts can extend it to the rest</p>
+      <dl class="spec-table">
+        <div class="spec-item"><dt>Role</dt><dd>Forward Deployed Engineer, built solo, now handing off to the sales analyst team</dd></div>
+        <div class="spec-item"><dt>Timeline</dt><dd>2026 to present, in production for one client</dd></div>
+        <div class="spec-item"><dt>Problem</dt><dd>Monthly client reports were hand-built from a dashboard that timed out over VPN, so coverage couldn’t grow past a handful of clients</dd></div>
+        <div class="spec-item"><dt>Outcome</dt><dd>In production for one client through a single agent, now expanding with the analysts writing per-client skills</dd></div>
+      </dl>
+    </header>
+
+    <div class="case-body">
+      <h2>Before</h2>
+      <p>Four sales analysts built monthly performance workbooks for pharma clients by hand. Each one started in a Tableau dashboard reached over VPN, which was slow when it loaded and timed out when it didn’t. Exports came down as large files, then went into Excel for filtering and per-client formatting. A single report took about half a day.</p>
+      <p>The team had shrunk and the work hadn’t. Most pharma clients got no proactive reporting at all, because there weren’t enough analyst hours to build it.</p>
+
+      <h2>What I built</h2>
+      <p>A single Gemini Enterprise agent that pulls one client’s monthly data, shapes it into the workbook that client expects, and hands it to the sales team.</p>
+      <p>The plumbing came first. I set up an MCP connection from Gemini Enterprise into BigQuery and wrote the extraction query against the underlying tables, working from the schema documentation the data engineering team provided. I wrapped it in a skill: instructions naming the table and columns, with the verified query saved underneath as a template. The agent fills in the report month and runs it. Then I wrote separate skills for formatting, covering column layout and header styling plus details like keeping decimal deliverable IDs as text. The agent runs those skills in sequence as one workflow.</p>
+
+      <h2>The key design decision</h2>
+      <p>When I looked across clients, the query was identical for every one we’ve scoped so far. What changed was the spreadsheet: which columns, and what each client calls each metric.</p>
+      <p>So I split them apart. One query skill, which I maintain for now, is shared across clients. The formatting skills are per client. That split is what lets the project grow without me. Adding a client means writing a formatting skill, not touching the data logic, and an analyst who knows that client’s template can write one.</p>
+      <p>It’s also why this is an agent and not a scheduled query feeding a spreadsheet script. A script would handle the layout fine, but every new client means new formatting, and the analysts don’t maintain Python. They can write and maintain a formatting skill in plain language. Gemini Enterprise was also already the sanctioned platform with governed data access, where a homegrown script would have needed its own approval path.</p>
+      <p>It also keeps the model away from the math. SQL produces every number. The agent’s job is layout.</p>
+
+      <h2>What it took</h2>
+      <p>Most of the work wasn’t prompting.</p>
+      <p>IAM came first. The agent needed read access to exactly the tables it queries and nothing more, and the MCP connector threw permission errors I had to trace through Google Cloud before a single query would run. Setting up the connector in Gemini Enterprise was its own lesson in who can see and call what.</p>
+      <p>Cost came next. BigQuery bills by bytes scanned, not rows returned, so the controls that matter are filtering on the date partition and selecting only the columns the report needs. That keeps each monthly run around 42 GB. I also cap the result size so the agent isn’t handed more data than it can use.</p>
+      <p>Then evals. Before trusting the agent, I needed a way to know it was right. I built a golden test set from six months of workbooks the analysts had already delivered by hand, and checked the agent’s output against them for structure and formatting: whether every sheet and column matched what the client expects.</p>
+
+      <h2>What happened next</h2>
+      <p>Comparing the agent’s output against the live dashboards surfaced numbers that didn’t agree. On two tactics, my query and Tableau counted the same deliverables differently. The data engineering team lead ran both queries side by side and checked them against the schema documentation I had built mine from. He found the error in the dashboard’s query and corrected it, and Tableau now matches the agent’s output.</p>
+      <p>I’m now teaching the sales analysts to write the per-client formatting skills themselves, then to assemble their own agent in Gemini Enterprise and test it against a golden set of their own. The goal is for the next client to be their build, not mine.</p>
+
+      <h2>Known limits</h2>
+      <p>One client runs end to end in production. Every other client depends on an analyst writing a formatting skill, and that handoff is in progress. About 5% of monthly deliverables still sit in a legacy database that hasn’t moved to BigQuery, so analysts check those by hand. There was no time study before the build, so I don’t have a measured before-and-after per report.</p>
+      <p>The golden set covers the tactics that happened to run in those six months and checks layout, not values. On its own, it wouldn’t catch a wrong number.</p>
+      <p>The query skill is tied to the current schema. A schema change or a new reporting tactic breaks it and leaves the golden set out of date. Today I handle that. The plan is for the analysts to take it over: go to the data engineering team, learn what changed, and update the query themselves.</p>
+
+      <h2>Stack</h2>
+      <div class="case-stack">
+        <span class="tag">Gemini Enterprise</span>
+        <span class="tag">Custom Skill Files</span>
+        <span class="tag">BigQuery</span>
+        <span class="tag">MCP</span>
+        <span class="tag">Google Cloud IAM</span>
+        <span class="tag">SQL</span>
+        <span class="tag">Google Drive</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently, open to Forward Deployed Engineer roles · New York, ET</div>
+</footer>
+
+<script>
+document.getElementById('nav').classList.add('scrolled');
+</script>
+</body>
+</html>
