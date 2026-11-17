@@ -332,6 +332,13 @@ mark{background:var(--mark);color:var(--ink);padding:0 .1em;border-radius:1px}
 /* Only the leading margin is reset here. Overriding size/weight made the first
    paragraph of every .about-body block render differently from the rest. */
 .about-body p:first-child{margin-top:0}
+/* Global reset strips link styling, so inline links need their own. --mark stays
+   reserved for case study CTAs. */
+.about-body p a{
+  color:var(--link);text-decoration:underline;
+  text-decoration-thickness:1px;text-underline-offset:3px;
+}
+.about-body p a:hover{text-decoration-thickness:2px}
 .fact-key{
   font-family:var(--f-mono);font-size:10px;letter-spacing:.13em;
   text-transform:uppercase;color:var(--ink-mid);margin-bottom:5px;
