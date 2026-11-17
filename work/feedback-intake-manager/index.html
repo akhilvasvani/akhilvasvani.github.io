@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Feedback Intake Manager: from client markup to team-ready feedback. Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A human-reviewed AI workflow that turns marked-up PDF proofs into routed feedback teams can act on.">
+<link rel="canonical" href="https://akhilvasvani.com/work/feedback-intake-manager">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/case.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<section class="case">
+  <div class="case-col">
+    <a href="/career#projects" class="case-back">← Back to projects</a>
+
+    <header class="case-header">
+      <div class="case-eyebrow">Forward Deployed Engineer</div>
+      <h1 class="case-h1">Feedback Intake Manager: from client markup to team-ready feedback</h1>
+      <p class="case-oneline">A human-reviewed AI workflow that turns marked-up PDF proofs into routed feedback teams can act on.</p>
+      <dl class="spec-table">
+        <div class="spec-item"><dt>Status</dt><dd>Deployed to production · account-manager pilot scheduled for December 2026</dd></div>
+        <div class="spec-item"><dt>Role</dt><dd>Sole engineer, from discovery through deployment and handover</dd></div>
+        <div class="spec-item"><dt>Build</dt><dd>Six weeks, Sept 25 to Nov 7, 2026</dd></div>
+      </dl>
+    </header>
+
+    <div class="case-body">
+      <p>When a pharma client sends back a marked-up proof, someone at Medscape has to read every comment and work out who acts on it before anything can start.</p>
+      <p>FIM does that first pass. It pulls the annotations out of the PDF, suggests a team for each comment, and flags unclear instructions or missing assets. An account manager reviews every suggestion before exporting an annotated proof and a revision sheet.</p>
+      <p>I scoped the workflow with the business leads, built the app with AI coding agents, deployed it on WebMD's internal hosting platform, and wrote the handover for the operations team. The December pilot will show how it does in live work.</p>
+
+      <h2>The problem</h2>
+      <p>Brand-review and medical-legal feedback reaches internal teams untriaged. A proof can carry 100 comments, and a large site can carry 200. Client requests sit next to reviewers' own notes, status updates, and questions nobody can act on yet.</p>
+      <p>Someone has to sort those comments, find the responsible team, and check that each request says enough to execute. A comment sent to the wrong team costs another handoff. An image swap with no image attached stops work while someone chases the file.</p>
+      <p>The clearest evidence was already in the files. Staff were writing "For Webservices" and "For Creative" next to comments by hand.</p>
+
+      <h2>Two questions per comment</h2>
+      <p>FIM asks two things about every comment: who needs to act, and is it ready to hand off?</p>
+      <p>The first answer is a suggested lane: Compliance, Build edits, Creative edits, Studio for video, or Not routed. The second is a set of flags. A comment might ask for an asset nobody supplied, give an instruction too vague to execute, or turn out to be our own internal note.</p>
+      <p>Low confidence and Unclear are separate flags on purpose. Low confidence means the model isn't sure which team owns the comment. Unclear means the client hasn't said what they want. The reviewer is fixing a different problem in each case.</p>
+      <p>The confidence score is the model's own estimate, not a calibrated probability. Suggestions below an adjustable threshold get a Low confidence flag, so they get extra attention in review.</p>
+      <p>Compliance is a lane, not a user. The Compliance team doesn't work in FIM. Account managers hand Compliance work over to them.</p>
+
+      <h2>How a review round works</h2>
+      <ol>
+        <li>The account manager signs in with a WebMD Google account on the active roster, then uploads a proof or imports it from the submissions tool.</li>
+        <li>An isolated worker pulls out the annotations, folds duplicates, keeps replies, and flags anything it can't anchor to the page.</li>
+        <li>Claude Sonnet suggests a lane, flags, a confidence score and a one-line action for each comment.</li>
+        <li>The account manager reviews the suggestions with the PDF open beside the list. Clicking a comment jumps the viewer to its spot on the page.</li>
+        <li>Before completing the round, they attest that they checked each lane and every dropped item.</li>
+        <li>FIM generates an annotated copy of the proof and a revision sheet grouped by team. The client's original comments stay on it, and FIM's decisions sit on top as separate annotations.</li>
+        <li>The full review exports to a spreadsheet, one row per comment.</li>
+      </ol>
+      <p>Attestations and internal counts stay inside FIM. They never appear in the copy the client receives.</p>
+
+      <h2>Dropped, not deleted</h2>
+      <p>Some comments need no action. FIM marks those as dropped from the action list, using written rules I worked out with the project lead from historical proofs. A dropped comment stays visible in its own section and can be restored. The account manager confirms the dropped batch before completing the round, and the spreadsheet export records every comment's outcome, dropped ones included.</p>
+      <p>Deterministic rules run first. A model steps in only when a rule can't read the meaning. New rules run in shadow before they touch a live round. Compliance comments and our own internal notes are never dropped without a person.</p>
+
+      <h2>Comparing models without touching the review</h2>
+      <p>Claude Sonnet handles routing and the drop rules that need a model. I also tested other models, such as JEV and Haiku 5.5, and built an optional shadow mode that records another model's output next to Sonnet's without changing anything the account manager sees.</p>
+
+      <h2>What I owned</h2>
+      <p>The routing design came from the people doing the work. I ran demo rounds on real proofs with the project lead, worked through the review flow with the account-manager lead who owns the process, and kept the requirements doc current as decisions changed.</p>
+      <p>Several of those decisions changed the build:</p>
+      <ul>
+        <li>The original routing design was replaced mid-build.</li>
+        <li>The business decided Compliance wouldn't use the app.</li>
+        <li>Each review round would start fresh instead of carrying decisions forward.</li>
+        <li>The output would go to the client.</li>
+      </ul>
+      <p>The fresh-round decision retired a carry-forward feature I'd already built. Because new behavior shipped behind switches that defaulted to off, I could turn the old workflow off while the current one kept running.</p>
+      <p>Beyond the app itself, I owned access control, the database schema and its 18 migrations, the fixes from a security audit, and the runbook for the operations team that takes FIM over.</p>
+
+      <h2>Architecture</h2>
+      <table>
+        <thead>
+          <tr><th scope="col">Layer</th><th scope="col">What it runs on</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Application</td><td>Node.js and Express on WebMD's internal hosting platform</td></tr>
+          <tr><td>Database</td><td>Supabase Postgres</td></tr>
+          <tr><td>File storage</td><td>Supabase Storage</td></tr>
+          <tr><td>Background jobs</td><td>A job queue on the same Postgres database</td></tr>
+          <tr><td>PDF processing</td><td>An isolated worker with its own memory, time and file-size limits</td></tr>
+          <tr><td>AI</td><td>Claude Sonnet, with an optional shadow mode for other models</td></tr>
+          <tr><td>Sign-in</td><td>Google sign-in, limited to an active WebMD roster</td></tr>
+          <tr><td>Release controls</td><td>Off-by-default feature switches and a classification kill switch</td></tr>
+        </tbody>
+      </table>
+      <details>
+        <summary>Access and retention</summary>
+
+        <p>Any active reviewer can pick up a job. Operator pages sit behind a separate admin check, and stored proofs are kept for a fixed retention period.</p>
+      </details>
+
+      <h2>The hard part</h2>
+      <p>The model was the easy part. Most of the work was getting a PDF-heavy app to run on a platform built for something else.</p>
+      <h3>Keeping a bad PDF from taking down the app</h3>
+      <p>The server started with 256 MB of memory. I got that raised, then moved PDF extraction into an isolated worker with its own memory ceiling, timeout and file-size caps. An oversized or stalled proof hits those limits instead of exhausting the main app.</p>
+      <p>The database allows 15 connections, so heavy jobs run through a queue on the same database and take turns.</p>
+      <details>
+        <summary>Getting it built and connected</summary>
+
+        <p>The hosting platform ignored the app's own build file. I got a new build image added to the central DevSecOps repo, and ran workarounds until it was approved.</p>
+        <p>Failures were often silent. Secrets and settings weren't reaching the app and nothing said so, so I built throwaway deployments whose only job was to show which values were missing. Later the server couldn't reach its database, and there were no logs. I wrote diagnostic tools, traced it to a network block, and got it opened through an SRE ticket.</p>
+      </details>
+      <details>
+        <summary>Messy annotations</summary>
+
+        <p>Client proofs mix margin notes, comment bubbles, highlights, replies and duplicates. FIM has to turn them into one clean list without losing which reply belongs to which comment.</p>
+        <p>The original PDF library had a known security flaw, so I rebuilt the reader on a patched one. I checked it against two regression proofs with 147 comments between them, plus 13 golden test cases, and its output matched the prototype's.</p>
+        <p>I also added pre-push checks for the branch names and characters that had broken deployments before.</p>
+      </details>
+
+      <h2>Security and human control</h2>
+      <p>Client text stays out of git and application logs. Automated test fixtures use scrambled copies of real proofs, and evaluation on real jobs happens only inside the approved environment.</p>
+      <p>Before the model could touch a real proof, it needed a vendor security review and API approval. I fixed what a security audit found, including adding encrypted database connections, and put a hard spending cap on every test run.</p>
+      <h3>The Compliance stop rule</h3>
+      <p>The pilot has a hard stop. A Compliance comment that FIM drops or sends to the wrong team counts as a miss. One confirmed miss and I turn classification off with the kill switch, and it stays off until the project lead and I have gone through what happened. Account managers keep working in the meantime, setting lanes by hand.</p>
+      <p>Account-manager review stays after the pilot too. It's part of the product.</p>
+
+      <h2>Evaluation</h2>
+      <p>I keep three questions apart.</p>
+      <h3>Did the comments come out intact?</h3>
+      <p>The 147-comment regression set and 13 golden cases run on every extraction change.</p>
+      <h3>Did FIM suggest the right team and flags?</h3>
+      <p>Routing is scored offline against a labelled set built with the project lead, and a held-out set of real jobs is still growing. Lanes and flags are scored separately, only on examples with a definite human label. Examples a reviewer marked Not sure are reported on their own, with the share of the set they make up.</p>
+      <p>Every correction a reviewer makes is stored next to the original suggestion, so pilot corrections become labels for the next evaluation.</p>
+      <h3>Does it help with live work?</h3>
+      <p>That's what the December pilot measures: correction rate, review time and downstream rework. There are no pilot outcomes yet, and offline scores can't tell you how much time FIM saves.</p>
+      <p>The 30 to 40 incorporation tasks a day behind the project is an estimate. The pilot will measure the real number.</p>
+
+      <h2>Failures and operations</h2>
+      <p>A proof that goes past the processing limits stops with a clear error. FIM never shows a partial list as if it were complete. If a model call fails, the review screen says so and the account manager sets lanes by hand.</p>
+      <p>Prometheus and Grafana are provisioned but not connected to FIM yet. Before the pilot I'm adding metrics for stuck jobs, extraction failures, model errors and failed exports, then testing alert delivery and the runbook's recovery steps end to end.</p>
+      <details>
+        <summary>Building with AI coding agents</summary>
+
+        <p>I was the only engineer, and AI coding agents wrote the code against a written spec. I owned the architecture, the acceptance criteria, the security fixes and every release decision.</p>
+        <p>Every change had to pass the required checks and come with a written record of what changed and how it was verified. Agents could merge only work I'd approved in advance, and only after a fully green run. I applied the database migrations myself.</p>
+        <p>When I switched coding tools mid-build, nothing was lost. The next agent picked up from the same spec, handoff notes and verification records.</p>
+      </details>
+      <details>
+        <summary>By the numbers</summary>
+
+        <ul>
+          <li>Six weeks of build, active on 34 separate days</li>
+          <li>18 database migrations, applied by hand in two environments</li>
+          <li>A 147-comment extraction regression set and 13 golden test cases</li>
+          <li>Deployed to production, with a handover runbook for the operations team</li>
+        </ul>
+      </details>
+
+      <h2>Known limits</h2>
+      <ul>
+        <li>Scanned proofs have no OCR. FIM marks the text as unavailable instead of guessing.</li>
+        <li>Some PDFs carry hidden lookalike annotations that FIM can't yet tell apart from real comments.</li>
+        <li>Email and Word feedback still comes in by hand. Only PDF intake is built.</li>
+        <li>Each comment gets one team. When a comment needs two, the account manager splits it or passes it along.</li>
+        <li>Live accuracy, time saved and downstream effect haven't been measured yet. The pilot starts in December.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently, open to Forward Deployed Engineer roles · New York, ET</div>
+</footer>
+
+<script>
+document.getElementById('nav').classList.add('scrolled');
+</script>
+</body>
+</html>
