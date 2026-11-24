@@ -63,7 +63,7 @@
       <p>I’m now teaching the sales analysts to write the per-client formatting skills themselves, then to assemble their own agent in Gemini Enterprise and test it against a golden set of their own. The goal is for the next client to be their build, not mine.</p>
 
       <h2>Known limits</h2>
-      <p>One client runs end to end in production. Every other client depends on an analyst writing a formatting skill, and that handoff is in progress. About 5% of monthly deliverables still sit in a legacy database that hasn’t moved to BigQuery, so analysts check those by hand. Before, the analyst would spend 8 hours. Now, it takes them about 15 minutes.</p>
+      <p>One client runs end to end in production. Every other client depends on an analyst writing a formatting skill, and that handoff is in progress. About 5% of monthly deliverables still sit in a legacy database that hasn’t moved to BigQuery, so analysts check those by hand. Before, the analyst would spend 8 hours. Now, it takes them about 15 minutes, including that check. These numbers are not estimates.</p>
       <p>The golden set covers the tactics that happened to run in those six months and checks layout, not values. On its own, it wouldn’t catch a wrong number.</p>
       <p>The query skill is tied to the current schema. A schema change or a new reporting tactic breaks it and leaves the golden set out of date. Today I handle that. The plan is for the analysts to take it over: go to the data engineering team, learn what changed, and update the query themselves.</p>
 
