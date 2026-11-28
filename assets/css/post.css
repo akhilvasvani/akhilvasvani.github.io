@@ -1,0 +1,103 @@
+/* ============================================================
+   Blog posts (Deep Dives). Loaded after case.css.
+   Everything here is scoped to .case-post, so no case study or
+   other page is affected. Inherits tokens from site.css.
+   ============================================================ */
+
+/* Inline links. case.css has none because no case study links inside its
+   body copy. Same treatment as .about-body p a in site.css. */
+.case-post .case-body a{
+  color:var(--link);text-decoration:underline;
+  text-decoration-thickness:1px;text-underline-offset:3px;
+}
+.case-post .case-body a:hover{text-decoration-thickness:2px}
+
+/* case.css restores list markers for ul only. The global reset zeroes ol padding. */
+.case-post .case-body ol{margin-top:16px;padding-left:22px;list-style:decimal}
+
+/* Tables. Same base as case.css (left aligned, top aligned, no outer border).
+   Added: a rule between rows, because the three column cost table runs long. */
+.case-post .case-body table{margin-top:20px}
+.case-post .case-body th{border-bottom:1px solid var(--ink-mid)}
+.case-post .case-body td{border-top:1px solid var(--rule)}
+@media(max-width:640px){
+  .case-post .case-body table{font-size:15px;line-height:1.45}
+  .case-post .case-body th,.case-post .case-body td{padding-right:10px}
+  .case-post .case-body th:last-child,.case-post .case-body td:last-child{padding-right:0}
+}
+@media(max-width:360px){
+  .case-post .case-body table{font-size:14px;overflow-wrap:anywhere}
+  .case-post .case-body th,.case-post .case-body td{padding-right:8px}
+}
+
+/* ── Flowchart figure ───────────────────────────────────────── */
+/* The figure is wider than the 680px text column so the wide SVG renders near
+   1:1 and keeps its text at 14px or more. On narrow screens it falls back to
+   the column width. */
+.case-post figure.chart{
+  --chart-w:min(900px,calc(100vw - 96px));
+  width:var(--chart-w);
+  margin:36px 0 0 calc((100% - var(--chart-w)) / 2);
+}
+.case-post .chart-box{margin-top:0;padding:0;background:#fff;overflow:hidden}
+.case-post figure.chart figcaption{
+  font-family:var(--f-mono);font-size:12.5px;color:var(--ink-mid);margin-top:10px;
+}
+.case-post .chart svg{width:100%;height:auto}
+
+/* Two layouts of the same chart. The 900 wide one keeps its text at 14px or
+   more only while it is displayed at about 800px or wider, so the swap happens
+   at the 900px breakpoint the home page already uses, not at 640px. */
+.case-post .chart svg.chart-wide{display:block}
+.case-post .chart svg.chart-narrow{display:none;max-width:400px;margin:0 auto}
+@media(max-width:900px){
+  .case-post figure.chart{width:100%;margin-left:0}
+  .case-post .chart svg.chart-wide{display:none}
+  .case-post .chart svg.chart-narrow{display:block}
+}
+/* On the narrowest phones let the chart use 14px more on each side so its text
+   stays at 14px or more. */
+@media(max-width:360px){
+  .case-post figure.chart{width:calc(100% + 28px);margin-left:-14px}
+}
+
+/* Chart palette. Blue and the grays come from the site tokens. Amber, red and
+   green are new and only exist inside the chart. Every text and background
+   pair is at least 4.5:1. */
+.case-post .chart{
+  --c-ink:var(--ink);
+  --c-line:var(--ink-mid);
+  --c-gray-fill:var(--paper-sunk);
+  --c-gray-stroke:#C9CAC3;
+  --c-blue-fill:#E6EDF9;
+  --c-blue:var(--link);
+  --c-amber-fill:#FFF3D1;
+  --c-amber-stroke:#A86400;
+  --c-amber-ink:#4A2C00;
+  --c-stop:#B42318;
+  --c-go:#1B6A3B;
+  --c-warn-fill:#FCE9E7;
+  --c-warn-stroke:#D4857E;
+  --c-warn-ink:#8A1C14;
+}
+.case-post .chart text{font-family:var(--f-display);fill:var(--c-ink)}
+.case-post .chart .bg{fill:#fff}
+.case-post .chart .ln{fill:none;stroke:var(--c-line);stroke-width:2}
+.case-post .chart .ah{fill:var(--c-line)}
+.case-post .chart .grp{fill:var(--c-gray-fill)}
+.case-post .chart .n-gray{fill:#fff;stroke:var(--c-gray-stroke);stroke-width:1.5}
+.case-post .chart .n-out{fill:var(--c-gray-fill);stroke:var(--c-gray-stroke);stroke-width:1.5}
+.case-post .chart .n-q{fill:var(--c-blue-fill);stroke:var(--c-blue);stroke-width:2}
+.case-post .chart .t-q{fill:var(--c-blue);font-weight:700}
+.case-post .chart .n-d{fill:var(--c-amber-fill);stroke:var(--c-amber-stroke);stroke-width:2}
+.case-post .chart .t-d{fill:var(--c-amber-ink)}
+.case-post .chart .n-stop{fill:var(--c-stop)}
+.case-post .chart .n-go{fill:var(--c-go)}
+.case-post .chart .t-on{fill:#fff}
+.case-post .chart .n-warn{fill:var(--c-warn-fill);stroke:var(--c-warn-stroke);stroke-width:1.5}
+.case-post .chart .t-warn{fill:var(--c-warn-ink)}
+.case-post .chart .t-title{font-weight:700}
+.case-post .chart .t-b{font-weight:700}
+.case-post .chart .t-lbl{font-weight:700}
+.case-post .chart .t-mid{fill:var(--ink-mid)}
+.case-post .chart .t-foot{font-style:italic}

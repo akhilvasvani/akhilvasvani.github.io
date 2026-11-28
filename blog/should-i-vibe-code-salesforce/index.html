@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Should I vibe code Salesforce? Akhil Vasvani</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Before you vibe code a replacement for Salesforce, decide which responsibilities you want to own. A framework for the build-versus-buy decision.">
+<link rel="canonical" href="https://akhilvasvani.com/blog/should-i-vibe-code-salesforce">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Should I vibe code Salesforce? Akhil Vasvani">
+<meta property="og:description" content="Before you vibe code a replacement for Salesforce, decide which responsibilities you want to own. A framework for the build-versus-buy decision.">
+<meta property="og:image" content="https://akhilvasvani.com/assets/img/og-vibe-code-salesforce.png">
+<meta property="og:url" content="https://akhilvasvani.com/blog/should-i-vibe-code-salesforce">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="stylesheet" href="../../assets/css/site.css">
+<link rel="stylesheet" href="../../assets/css/case.css">
+<link rel="stylesheet" href="../../assets/css/post.css">
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="/" class="nav-brand">Akhil Vasvani</a>
+  <div class="nav-links">
+    <a href="/career">Career</a>
+    <a href="/about">About</a>
+    <a href="/blog">Blog</a>
+  </div>
+</nav>
+
+<main>
+<section class="case case-post">
+  <div class="case-col">
+    <a href="/blog" class="case-back">← Back to blog</a>
+
+    <header class="case-header">
+      <div class="case-eyebrow">Deep Dive</div>
+      <h1 class="case-h1">Should I vibe code Salesforce?</h1>
+      <p class="case-oneline">A build-versus-buy framework for deciding whether to replace a CRM with code an AI agent wrote.</p>
+      <dl class="spec-table">
+        <div class="spec-item"><dt>Published</dt><dd><time datetime="2026-12-01">Dec 1, 2026</time></dd></div>
+        <div class="spec-item"><dt>Type</dt><dd>Deep Dive</dd></div>
+        <div class="spec-item"><dt>Reading time</dt><dd>6 min</dd></div>
+      </dl>
+    </header>
+
+    <div class="case-body">
+      <p>Should you vibe code Salesforce? A focused tool, maybe. A full replacement, rarely, and not without a named owner. The first question is why you want to replace it.</p>
+
+      <p>This has come up at work more than once, usually right after someone sees how fast a coding agent can produce a working app: "If we can build a CRM screen in an afternoon, why are we paying for Salesforce?" A prototype can answer whether you can build it. Only the organization can answer which responsibilities it wants to take on.</p>
+
+      <p>By vibe coding, I mean letting an AI agent write the code and accepting it without reading it closely. In <a href="https://x.com/karpathy/status/1886192184808149383" target="_blank" rel="noopener noreferrer">the post that coined the term</a>, Andrej Karpathy said it was "not too bad for throwaway weekend projects." Vibe coding is a great way to test an idea and a risky way to build the system that holds your customer records.</p>
+
+      <p>A mentor shared Tugce Erten's <a href="https://a16z.com/how-ai-applications-earn-their-premium/" target="_blank" rel="noopener noreferrer">How AI Applications Earn Their Premium</a> from a16z. As I read it, the piece is about what makes software worth paying for when customers can build more on their own. It made me ask the reverse: what does a company take on when it decides not to pay?</p>
+
+      <h2>Why do you want to replace it?</h2>
+
+      <p>Dissatisfaction with a CRM usually falls into one of five buckets, and each needs a different fix:</p>
+
+      <ul>
+        <li><strong>Cost.</strong> You pay for far more than you use.</li>
+        <li><strong>Missing functionality.</strong> Part of the workflow lives in spreadsheets.</li>
+        <li><strong>Poor experience.</strong> The system works, but people avoid it.</li>
+        <li><strong>Poor implementation.</strong> Years of extra fields and rules have made the setup a tangle.</li>
+        <li><strong>Strategic mismatch.</strong> Your sales process differs enough that the product forces workarounds.</li>
+      </ul>
+
+      <p>Only the first is about money, and a new system built to cut cost can still inherit a messy implementation. Before replacing anything, I'd want to know whether the problem is the product, your setup, or a business process nobody has settled.</p>
+
+      <p>Then ask: if Salesforce became free tomorrow, would you still want to replace it? If you'd still replace it, judge the proposal on fit, control, or usability. If you'd keep Salesforce, the case is mainly financial and has to survive a full cost comparison.</p>
+
+      <figure class="chart">
+        <div class="case-diagram chart-box">
+          <svg class="chart-wide" viewBox="0 0 900 1214" role="img" aria-labelledby="chart-w-title chart-w-desc">
+            <title id="chart-w-title">Flowchart: why replace Salesforce, free test, scope of replacement, ownership checklist, then a staged test.</title>
+            <desc id="chart-w-desc">Start with why you want to replace Salesforce: cost, missing functionality, poor experience, poor implementation, or strategic mismatch. Then ask whether you would still want to replace it if it were free. If yes, judge the proposal on fit, control, or usability. If no, the case is mainly money, so run a full cost comparison. Next, decide what you are replacing: a focused tool or a new interface on top of the CRM, both often reasonable, or the CRM itself, which is a different commitment. Then ask whether the owners, maintenance time, downtime and data-loss limits, and a plan for when the builder leaves are in writing. If not, you are not ready, so write them down before anyone writes code. If so, run the test one workflow at a time and expand only when the evidence holds. The chart ends with: you can vibe code the prototype, you can't vibe code the ownership.</desc>
+            <defs>
+              <marker id="chart-w-ah" viewBox="0 0 12 12" refX="8" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path class="ah" d="M0 1L11 6L0 11z"/></marker>
+            </defs>
+            <rect class="bg" width="900" height="1214"/>
+
+            <text class="t-title" x="450" y="40" text-anchor="middle" font-size="24">Should you vibe code Salesforce?</text>
+
+            <!-- 1. Why replace it, five categories feeding one question -->
+            <rect class="n-q" x="240" y="64" width="420" height="56" rx="4"/>
+            <text class="t-q" x="450" y="99" text-anchor="middle" font-size="20">Why do you want to replace it?</text>
+            <path class="ln" d="M450 120V144"/>
+            <rect class="grp" x="14" y="144" width="872" height="96" rx="4"/>
+            <rect class="n-gray" x="30" y="160" width="160" height="64" rx="3"/>
+            <rect class="n-gray" x="200" y="160" width="160" height="64" rx="3"/>
+            <rect class="n-gray" x="370" y="160" width="160" height="64" rx="3"/>
+            <rect class="n-gray" x="540" y="160" width="160" height="64" rx="3"/>
+            <rect class="n-gray" x="710" y="160" width="160" height="64" rx="3"/>
+            <text x="110" y="198" text-anchor="middle" font-size="18">Cost</text>
+            <text x="280" text-anchor="middle" font-size="18"><tspan x="280" y="187">Missing</tspan><tspan x="280" y="209">functionality</tspan></text>
+            <text x="450" text-anchor="middle" font-size="18"><tspan x="450" y="187">Poor</tspan><tspan x="450" y="209">experience</tspan></text>
+            <text x="620" text-anchor="middle" font-size="18"><tspan x="620" y="187">Poor</tspan><tspan x="620" y="209">implementation</tspan></text>
+            <text x="790" text-anchor="middle" font-size="18"><tspan x="790" y="187">Strategic</tspan><tspan x="790" y="209">mismatch</tspan></text>
+            <path class="ln" d="M450 240V277" marker-end="url(#chart-w-ah)"/>
+
+            <!-- 2. Free test -->
+            <polygon class="n-d" points="158,280 742,280 770,328 742,376 158,376 130,328"/>
+            <text class="t-d t-b" x="450" text-anchor="middle" font-size="20"><tspan x="450" y="322">If Salesforce were free tomorrow,</tspan><tspan x="450" y="348">would you still want to replace it?</tspan></text>
+            <path class="ln" d="M231 376V421" marker-end="url(#chart-w-ah)"/>
+            <path class="ln" d="M669 376V421" marker-end="url(#chart-w-ah)"/>
+            <text class="t-lbl" x="243" y="406" font-size="18">Yes</text>
+            <text class="t-lbl" x="681" y="406" font-size="18">No</text>
+            <rect class="n-out" x="26" y="424" width="410" height="72" rx="4"/>
+            <rect class="n-out" x="464" y="424" width="410" height="72" rx="4"/>
+            <text x="231" text-anchor="middle" font-size="18"><tspan x="231" y="455">Judge the proposal on fit,</tspan><tspan x="231" y="477">control, or usability.</tspan></text>
+            <text x="669" text-anchor="middle" font-size="18"><tspan x="669" y="455">The case is mainly money.</tspan><tspan x="669" y="477">Run a full cost comparison.</tspan></text>
+            <path class="ln" d="M231 496V528H450"/>
+            <path class="ln" d="M669 496V528H450"/>
+            <path class="ln" d="M450 528V565" marker-end="url(#chart-w-ah)"/>
+
+            <!-- 3. Scope, three categories feeding one decision -->
+            <rect class="n-q" x="240" y="568" width="420" height="56" rx="4"/>
+            <text class="t-q" x="450" y="603" text-anchor="middle" font-size="20">What exactly are you replacing?</text>
+            <path class="ln" d="M450 624V648"/>
+            <rect class="grp" x="14" y="648" width="872" height="136" rx="4"/>
+            <rect class="n-gray" x="30" y="666" width="272" height="100" rx="3"/>
+            <rect class="n-gray" x="314" y="666" width="272" height="100" rx="3"/>
+            <rect class="n-warn" x="598" y="666" width="272" height="100" rx="3"/>
+            <text class="t-b" x="166" y="706" text-anchor="middle" font-size="18">Focused tool</text>
+            <text class="t-mid" x="166" y="732" text-anchor="middle" font-size="17">Often reasonable</text>
+            <text class="t-b" x="450" text-anchor="middle" font-size="18"><tspan x="450" y="696">New interface on top</tspan><tspan x="450" y="718">of the CRM</tspan></text>
+            <text class="t-mid" x="450" y="744" text-anchor="middle" font-size="17">Often reasonable</text>
+            <text class="t-warn t-b" x="734" y="706" text-anchor="middle" font-size="18">Replace the CRM</text>
+            <text class="t-warn" x="734" y="732" text-anchor="middle" font-size="17">A different commitment</text>
+            <path class="ln" d="M450 784V823" marker-end="url(#chart-w-ah)"/>
+
+            <!-- 4. Ownership in writing -->
+            <polygon class="n-d" points="66,826 834,826 870,891 834,956 66,956 30,891"/>
+            <text class="t-d t-b" x="450" y="868" text-anchor="middle" font-size="20">Are these in writing?</text>
+            <text class="t-d" x="450" text-anchor="middle" font-size="18"><tspan x="450" y="898">A named business owner and technical owner, protected maintenance time,</tspan><tspan x="450" y="922">downtime and data-loss limits, and a plan for when the builder leaves.</tspan></text>
+            <path class="ln" d="M259 956V1001" marker-end="url(#chart-w-ah)"/>
+            <path class="ln" d="M701 956V1001" marker-end="url(#chart-w-ah)"/>
+            <text class="t-lbl" x="271" y="986" font-size="18">Yes</text>
+            <text class="t-lbl" x="713" y="986" font-size="18">No</text>
+            <rect class="n-go" x="24" y="1004" width="470" height="132" rx="4"/>
+            <text class="t-on" x="259" text-anchor="middle" font-size="18"><tspan class="t-b" x="259" y="1040">Run the test, one workflow at a time:</tspan><tspan x="259" y="1065">representative cases, support load,</tspan><tspan x="259" y="1090">data export and recovery, rollback plan.</tspan><tspan x="259" y="1115">Expand only when the evidence holds.</tspan></text>
+            <rect class="n-stop" x="526" y="1004" width="350" height="132" rx="4"/>
+            <text class="t-on" x="701" text-anchor="middle" font-size="18"><tspan class="t-b" x="701" y="1052">Not ready.</tspan><tspan x="701" y="1077">Write them down before</tspan><tspan x="701" y="1102">anyone writes code.</tspan></text>
+
+            <text class="t-foot" x="450" y="1182" text-anchor="middle" font-size="20">You can vibe code the prototype. You can't vibe code the ownership.</text>
+          </svg>
+          <svg class="chart-narrow" viewBox="0 0 360 2064" role="img" aria-labelledby="chart-n-title chart-n-desc">
+            <title id="chart-n-title">Flowchart: why replace Salesforce, free test, scope of replacement, ownership checklist, then a staged test.</title>
+            <desc id="chart-n-desc">Start with why you want to replace Salesforce: cost, missing functionality, poor experience, poor implementation, or strategic mismatch. Then ask whether you would still want to replace it if it were free. If yes, judge the proposal on fit, control, or usability. If no, the case is mainly money, so run a full cost comparison. Next, decide what you are replacing: a focused tool or a new interface on top of the CRM, both often reasonable, or the CRM itself, which is a different commitment. Then ask whether the owners, maintenance time, downtime and data-loss limits, and a plan for when the builder leaves are in writing. If not, you are not ready, so write them down before anyone writes code. If so, run the test one workflow at a time and expand only when the evidence holds. The chart ends with: you can vibe code the prototype, you can't vibe code the ownership.</desc>
+            <defs>
+              <marker id="chart-n-ah" viewBox="0 0 12 12" refX="8" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path class="ah" d="M0 1L11 6L0 11z"/></marker>
+            </defs>
+            <rect class="bg" width="360" height="2064"/>
+
+            <text class="t-title" x="180" text-anchor="middle" font-size="22"><tspan x="180" y="38">Should you vibe code</tspan><tspan x="180" y="65">Salesforce?</tspan></text>
+
+            <!-- 1. Why replace it, five categories stacked -->
+            <rect class="n-q" x="12" y="84" width="336" height="64" rx="4"/>
+            <text class="t-q" x="180" text-anchor="middle" font-size="20"><tspan x="180" y="111">Why do you want</tspan><tspan x="180" y="135">to replace it?</tspan></text>
+            <path class="ln" d="M180 148V168"/>
+            <rect class="grp" x="12" y="168" width="336" height="276" rx="4"/>
+            <rect class="n-gray" x="24" y="180" width="312" height="44" rx="3"/>
+            <rect class="n-gray" x="24" y="232" width="312" height="44" rx="3"/>
+            <rect class="n-gray" x="24" y="284" width="312" height="44" rx="3"/>
+            <rect class="n-gray" x="24" y="336" width="312" height="44" rx="3"/>
+            <rect class="n-gray" x="24" y="388" width="312" height="44" rx="3"/>
+            <text x="180" y="208" text-anchor="middle" font-size="18">Cost</text>
+            <text x="180" y="260" text-anchor="middle" font-size="18">Missing functionality</text>
+            <text x="180" y="312" text-anchor="middle" font-size="18">Poor experience</text>
+            <text x="180" y="364" text-anchor="middle" font-size="18">Poor implementation</text>
+            <text x="180" y="416" text-anchor="middle" font-size="18">Strategic mismatch</text>
+            <path class="ln" d="M180 444V477" marker-end="url(#chart-n-ah)"/>
+
+            <!-- 2. Free test, Yes and No stacked -->
+            <polygon class="n-d" points="30,480 330,480 348,535 330,590 30,590 12,535"/>
+            <text class="t-d t-b" x="180" text-anchor="middle" font-size="19"><tspan x="180" y="517">If Salesforce were free</tspan><tspan x="180" y="542">tomorrow, would you still</tspan><tspan x="180" y="567">want to replace it?</tspan></text>
+            <path class="ln" d="M180 590V625" marker-end="url(#chart-n-ah)"/>
+            <rect class="grp" x="12" y="628" width="336" height="260" rx="4"/>
+            <rect class="n-out" x="24" y="640" width="312" height="112" rx="3"/>
+            <rect class="n-out" x="24" y="764" width="312" height="112" rx="3"/>
+            <text class="t-lbl" x="40" y="676" font-size="18">Yes</text>
+            <text x="40" font-size="18"><tspan x="40" y="702">Judge the proposal on fit,</tspan><tspan x="40" y="726">control, or usability.</tspan></text>
+            <text class="t-lbl" x="40" y="800" font-size="18">No</text>
+            <text x="40" font-size="18"><tspan x="40" y="826">The case is mainly money.</tspan><tspan x="40" y="850">Run a full cost comparison.</tspan></text>
+            <path class="ln" d="M180 888V921" marker-end="url(#chart-n-ah)"/>
+
+            <!-- 3. Scope, three categories stacked -->
+            <rect class="n-q" x="12" y="924" width="336" height="64" rx="4"/>
+            <text class="t-q" x="180" text-anchor="middle" font-size="20"><tspan x="180" y="951">What exactly are</tspan><tspan x="180" y="975">you replacing?</tspan></text>
+            <path class="ln" d="M180 988V1008"/>
+            <rect class="grp" x="12" y="1008" width="336" height="280" rx="4"/>
+            <rect class="n-gray" x="24" y="1020" width="312" height="72" rx="3"/>
+            <rect class="n-gray" x="24" y="1100" width="312" height="96" rx="3"/>
+            <rect class="n-warn" x="24" y="1204" width="312" height="72" rx="3"/>
+            <text class="t-b" x="180" y="1050" text-anchor="middle" font-size="18">Focused tool</text>
+            <text class="t-mid" x="180" y="1076" text-anchor="middle" font-size="18">Often reasonable</text>
+            <text class="t-b" x="180" text-anchor="middle" font-size="18"><tspan x="180" y="1130">New interface on top</tspan><tspan x="180" y="1152">of the CRM</tspan></text>
+            <text class="t-mid" x="180" y="1180" text-anchor="middle" font-size="18">Often reasonable</text>
+            <text class="t-warn t-b" x="180" y="1234" text-anchor="middle" font-size="18">Replace the CRM</text>
+            <text class="t-warn" x="180" y="1260" text-anchor="middle" font-size="18">A different commitment</text>
+            <path class="ln" d="M180 1288V1321" marker-end="url(#chart-n-ah)"/>
+
+            <!-- 4. Ownership in writing, Yes and No stacked -->
+            <polygon class="n-d" points="36,1324 324,1324 348,1440 324,1556 36,1556 12,1440"/>
+            <text class="t-d t-b" x="180" y="1368" text-anchor="middle" font-size="20">Are these in writing?</text>
+            <text class="t-d" x="180" text-anchor="middle" font-size="18"><tspan x="180" y="1398">A named business owner</tspan><tspan x="180" y="1422">and technical owner,</tspan><tspan x="180" y="1446">protected maintenance time,</tspan><tspan x="180" y="1470">downtime and data-loss limits,</tspan><tspan x="180" y="1494">and a plan for when the</tspan><tspan x="180" y="1518">builder leaves.</tspan></text>
+            <path class="ln" d="M180 1556V1589" marker-end="url(#chart-n-ah)"/>
+            <rect class="grp" x="12" y="1592" width="336" height="384" rx="4"/>
+            <rect class="n-go" x="24" y="1604" width="312" height="222" rx="3"/>
+            <text class="t-on t-lbl" x="40" y="1634" font-size="18">Yes</text>
+            <text class="t-on" x="40" font-size="18"><tspan class="t-b" x="40" y="1662">Run the test, one workflow</tspan><tspan class="t-b" x="40" y="1686">at a time:</tspan><tspan x="40" y="1710">representative cases, support</tspan><tspan x="40" y="1734">load, data export and</tspan><tspan x="40" y="1758">recovery, rollback plan.</tspan><tspan x="40" y="1782">Expand only when the evidence</tspan><tspan x="40" y="1806">holds.</tspan></text>
+            <rect class="n-stop" x="24" y="1838" width="312" height="126" rx="3"/>
+            <text class="t-on t-lbl" x="40" y="1868" font-size="18">No</text>
+            <text class="t-on" x="40" font-size="18"><tspan class="t-b" x="40" y="1896">Not ready.</tspan><tspan x="40" y="1920">Write them down before</tspan><tspan x="40" y="1944">anyone writes code.</tspan></text>
+
+            <text class="t-foot" x="180" text-anchor="middle" font-size="19"><tspan x="180" y="2018">You can vibe code the prototype.</tspan><tspan x="180" y="2044">You can't vibe code the ownership.</tspan></text>
+          </svg>
+        </div>
+        <figcaption>The whole framework on one page.</figcaption>
+      </figure>
+
+      <h2>What are you replacing?</h2>
+
+      <p>"Replace Salesforce" can mean three different projects:</p>
+
+      <table>
+        <thead>
+          <tr><th scope="col">Project</th><th scope="col">The real question</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Build a focused tool</td><td>Can you solve one unmet need yourself?</td></tr>
+          <tr><td>Build a new interface or workflow on top of the existing CRM</td><td>Can you change how people work without replacing the system underneath?</td></tr>
+          <tr><td>Replace the CRM</td><td>Can you migrate and run the customer-record system the business depends on, for years?</td></tr>
+        </tbody>
+      </table>
+
+      <p>The first two are often reasonable, and AI coding tools have made them much cheaper to try. The third is a different kind of commitment. A quick prototype is not evidence that replacing the CRM is easy.</p>
+
+      <p>Agree on what "it" includes before estimating speed. That means integrations and their owners, data sync, sign-in, role-based visibility, and any regulatory rules on customer data. You don't need parity with everything Salesforce sells. You do need a written list of what the business actually relies on. In my experience, most teams use only a fraction of what they pay for, so that list may be short.</p>
+
+      <h2>If it's about savings</h2>
+
+      <p>Canceling the subscription doesn't cancel the work. A cost-driven proposal should answer these questions:</p>
+
+      <ul>
+        <li>Who investigates when an integration stops updating records?</li>
+        <li>Who checks whether users can see information they shouldn't?</li>
+        <li>Who patches dependencies and ships security fixes?</li>
+        <li>Who restores data after an accidental deletion?</li>
+        <li>Who decides which feature requests get built and which get turned down?</li>
+      </ul>
+
+      <p>Compare both operating models over the same planning period. Treat the table as a worksheet, because either column can come out ahead.</p>
+
+      <table>
+        <thead>
+          <tr><th scope="col">Cost area</th><th scope="col">Keep Salesforce (or switch vendors)</th><th scope="col">Build in-house</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Software</td><td>Licenses and paid add-ons</td><td>Initial development and engineering review</td></tr>
+          <tr><td>Setup</td><td>Implementation and administration</td><td>Migration, validation, and rollout</td></tr>
+          <tr><td>Integrations</td><td>Configuration and add-on connectors</td><td>Hosting, dependencies, and integrations with other systems</td></tr>
+          <tr><td>People</td><td>Training and ongoing oversight</td><td>Support, security, maintenance, and upgrades</td></tr>
+          <tr><td>Over time</td><td>Renewal price increases, and the cost of leaving later, including data export</td><td>Rework as the business changes and requests pile up</td></tr>
+          <tr><td>Hidden costs</td><td>Workarounds and product limits</td><td>Opportunity cost and operational risk</td></tr>
+        </tbody>
+      </table>
+
+      <p>Buying doesn't erase responsibility either. Salesforce <a href="https://www.salesforce.com/blog/shared-responsibility-model/" target="_blank" rel="noopener noreferrer">describes security as shared</a>: it secures the platform, and customers remain responsible for their own data, access, and settings. Either way, you choose which responsibilities to carry.</p>
+
+      <h2>Who owns it after launch?</h2>
+
+      <p>Developers should answer for engineering quality. A company that replaces a business-critical system must also commit staffing and budget. Otherwise developers absorb the consequences of someone else's cost-saving decision. If leadership approves the savings, it also approves the ongoing ownership. Before anyone writes code, put these in writing:</p>
+
+      <ul>
+        <li>A named business owner and a named technical owner.</li>
+        <li>Reserved maintenance and support capacity, not time borrowed from other projects.</li>
+        <li>A plan for when the original builder leaves.</li>
+        <li>Acceptable downtime and data loss, stated as numbers (for example, no more than four business hours offline).</li>
+        <li>Who absorbs the cost when an outage stalls the sales team.</li>
+        <li>The other engineering work that will get less attention.</li>
+      </ul>
+
+      <p>Vibe coding makes this harder. An agent can produce thousands of lines that pass the demo, and if review is skipped, nobody has read them closely. Six months later, when a sync job starts dropping records, someone must understand that code well enough to change it safely. The usual worry is what happens when the original developer leaves. Here, the original developer may never have fully understood it. If you build this way, budget time to review, test, and document the code before it holds customer records.</p>
+
+      <h2>When building is the right call</h2>
+
+      <p>Being able to build something is not a reason to build it. Owning a CRM makes sense when you can name the gain: a workflow that materially changes how the business runs, a deliberately small product without complexity you never used, control over changes that matter to you, or a cost advantage that holds after ownership costs.</p>
+
+      <p>A strong case might be a small team using Salesforce for one thing: moving a few hundred accounts through a business-specific approval process. They skip forecasting and marketing, the data carries no special regulatory burden, and every process change needs an admin ticket. With a named owner and protected maintenance time, a custom tool could fit better. It saves money only if they can drop Salesforce entirely. If they can, lean toward building. If not, they've built a better tool and kept the bill.</p>
+
+      <p>Then ask the uncomfortable question: what should your developers stop building so they can own the CRM? If the proposal has a good answer, test it in steps:</p>
+
+      <ol>
+        <li>Pick one workflow with a clear owner.</li>
+        <li>Define its required behavior, permissions, and integrations.</li>
+        <li>Test it against representative cases, exceptions included.</li>
+        <li>Measure user effort and support load, not only development time.</li>
+        <li>Test data export and recovery.</li>
+        <li>Agree on a rollback plan before moving anything business-critical.</li>
+        <li>Expand only when the evidence supports it.</li>
+      </ol>
+
+      <p>A vibe-coded prototype shows whether the workflow works. This evaluation shows whether you can support it at acceptable cost and risk.</p>
+
+      <h2>The proposal to ask for</h2>
+
+      <p>I'm not against building a CRM in-house. But a good proposal covers more than the application. It says what you can leave out and what owning it gains you. It also says who supports it, what happens when it fails, and what work you'll give up to maintain it. You can vibe code the prototype. You can't vibe code the ownership.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="footer-status">Currently, open to Forward Deployed Engineer roles · New York, ET</div>
+</footer>
+
+<script>
+document.getElementById('nav').classList.add('scrolled');
+
+// Both chart layouts are in the markup and CSS shows one of them. Keep the
+// other out of the accessibility tree so a screen reader announces one chart.
+(function () {
+  var wide = document.querySelector('.chart-wide');
+  var narrow = document.querySelector('.chart-narrow');
+  if (!wide || !narrow || !window.matchMedia) return;
+  var mq = window.matchMedia('(max-width:900px)');
+  function sync() {
+    wide.setAttribute('aria-hidden', String(mq.matches));
+    narrow.setAttribute('aria-hidden', String(!mq.matches));
+  }
+  sync();
+  mq.addEventListener('change', sync);
+})();
+</script>
+</body>
+</html>
