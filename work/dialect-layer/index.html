@@ -39,22 +39,22 @@
 
     <div class="case-body">
       <h2>Before</h2>
-      <p>The company built custom MCPs for Salesforce and Workfront so people could ask Gemini and Claude for data in plain language. Plain questions failed. Someone would ask how many deals included an internal product code this quarter for a pharma client and get back: “Cannot find what you are looking for. Are you sure you are connected to Salesforce?”</p>
-      <p>The connection was fine. The error sent people looking in the wrong place, and other teams tried their own fixes before the problem was handed to me. In the meantime, people went back to their usual workflow in Salesforce, which took 15 to 20 minutes for a lookup like that one.</p>
+      <p>The company built custom MCPs for Salesforce and Workfront so people could ask Gemini and Claude for data in plain language. The questions failed. Someone would ask how many deals this quarter included an internal product code for a pharma client. They would get back: “Cannot find what you are looking for. Are you sure you are connected to Salesforce?”</p>
+      <p>The connection was fine. The error sent people looking in the wrong place, and other teams tried their own fixes before the problem was handed to me. Meanwhile, people went back to Salesforce, where a lookup like that took 15 to 20 minutes.</p>
 
       <h2>What I did instead</h2>
-      <p>I started with the question itself. It makes sense to anyone at Medscape and almost none of it makes sense to Salesforce. The product code is our shorthand, not the name Salesforce stores. “The client” means something specific in our schema that the model can’t infer. So the model searched for terms that don’t exist and reported the miss as a connection problem.</p>
-      <p>To translate, I had to learn the target language first. I got on calls with our Salesforce admin and worked through how our terms map to Salesforce’s structure until I could read a question the way Salesforce would.</p>
-      <p>Then I built a skill for Gemini Enterprise that sits between the user and the MCP. It maps the words people actually use, from casual names for clients and deals to internal product shorthand, onto the Salesforce objects and fields those words refer to. It also gives ambiguous phrases such as “this year” a fixed meaning. The MCP itself is read only, so the skill cannot modify Salesforce records through it.</p>
-      <p>With the skill in place, the product question resolves cleanly: identify the client, pull its deals for the quarter, and count the ones that include that product. I timed it. The same lookup that took 15 to 20 minutes in Salesforce takes about 2.</p>
+      <p>I started with the question itself. It makes sense to anyone at Medscape and almost none of it makes sense to Salesforce. The product code is our shorthand, not the name Salesforce stores. “The client” has a specific meaning in our schema that the model can’t infer. So the model searched for terms that don’t exist and reported the miss as a connection problem.</p>
+      <p>To translate, I first had to learn the target language. I got on calls with our Salesforce admin and worked through how our terms map to Salesforce’s structure, until I could read a question the way Salesforce would.</p>
+      <p>Then I built a skill for Gemini Enterprise that sits between the user and the MCP. It maps the words people actually use onto the Salesforce objects and fields they refer to, from casual client and deal names to internal product shorthand. It also gives ambiguous phrases like “this year” a fixed meaning. The MCP is read only, so the skill cannot modify Salesforce records through it.</p>
+      <p>With the skill in place, the product question resolves cleanly. The skill identifies the client, pulls that client’s deals for the quarter, and counts the ones that include the product. I timed it: the lookup that took 15 to 20 minutes in Salesforce takes about 2.</p>
 
       <h2>The key design decision</h2>
-      <p>The skill instructs the model that if a field doesn’t exist or returns nothing, it should name the field and stop. Don’t substitute a guess.</p>
-      <p>The original error was misleading. “Are you sure you are connected?” pointed people at the one part of the system that was working. A model that guesses would be worse, returning numbers that look right and aren’t.</p>
+      <p>The skill tells the model that if a field doesn’t exist or returns nothing, it should name the field and stop. Don’t substitute a guess.</p>
+      <p>The original error was misleading. “Are you sure you are connected?” pointed people at the one part of the system that was working. A model that guesses would be worse, because it would return numbers that look right and aren’t.</p>
       <p>Naming the missing field turns a dead end into a next step. The user can rephrase, or add the term to their own copy of the skill.</p>
 
       <h2>Adoption</h2>
-      <p>The skill went out across the organization. More than 1,000 people have access, and by my estimate a few hundred used it in the past month. The better signal is what happened next: teams took the base skill and extended it with their own vocabulary. People treated it as a template, which is what a dialect problem needs, since every team has its own.</p>
+      <p>The skill went out across the organization. More than 1,000 people have access, and by my estimate a few hundred used it in the past month. The better signal is what happened next: teams took the base skill and extended it with their own vocabulary. They treated it as a template, which suits a dialect problem, since every team has its own.</p>
 
       <h2>The pattern repeats</h2>
       <p>Workfront, Adobe’s project management system, has been in use at Medscape for over ten years, and we talk to it in our own way too. Same failure, different dialect. I ran 10 to 15 experiments to find where queries broke and turned the results into a Workfront translation skill, now in pilot.</p>
